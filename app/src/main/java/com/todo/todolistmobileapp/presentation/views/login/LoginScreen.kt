@@ -1,12 +1,12 @@
-package com.todo.todolistmobileapp.views.login
+package com.todo.todolistmobileapp.presentation.views.login
 
 import android.annotation.SuppressLint
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.todo.todolistmobileapp.ui.theme.TodoListMobileAppTheme
-import com.todo.todolistmobileapp.views.login.components.LoginBottomBar
-import com.todo.todolistmobileapp.views.login.components.LoginContent
+import com.todo.todolistmobileapp.presentation.views.login.components.LoginBottomBar
+import com.todo.todolistmobileapp.presentation.views.login.components.LoginContent
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

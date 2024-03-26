@@ -1,4 +1,4 @@
-package com.todo.todolistmobileapp.components
+package com.todo.todolistmobileapp.presentation.components
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons

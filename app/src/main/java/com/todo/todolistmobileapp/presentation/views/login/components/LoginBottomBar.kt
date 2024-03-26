@@ -1,4 +1,4 @@
-package com.todo.todolistmobileapp.views.login.components
+package com.todo.todolistmobileapp.presentation.views.login.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
