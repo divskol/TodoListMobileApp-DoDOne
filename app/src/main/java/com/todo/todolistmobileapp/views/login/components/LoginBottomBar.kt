@@ -21,13 +21,13 @@ fun LoginBottomBar() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp),
+            .padding(20.dp),
         horizontalArrangement = Arrangement.Center
     ) {
-        Text(text = "No tienes cuenta", fontSize = 14.sp, color = Color.Gray)
+        Text(text = "¿No tienes cuenta?", fontSize = 14.sp, color = Color.Gray)
         Spacer(modifier = Modifier.width(5.dp))
         Text(
-            text = "Registrate aquí",
+            text = "¡Registrate aquí!",
             fontSize = 14.sp,
             color = Color.Black,
             fontWeight = FontWeight.Bold
