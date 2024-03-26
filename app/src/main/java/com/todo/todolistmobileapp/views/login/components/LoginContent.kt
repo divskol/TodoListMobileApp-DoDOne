@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -22,6 +23,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,10 +36,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.todo.todolistmobileapp.R
+import com.todo.todolistmobileapp.components.DefaultButton
+import com.todo.todolistmobileapp.components.DefaultTextField
 import com.todo.todolistmobileapp.ui.theme.Blue300
 import com.todo.todolistmobileapp.ui.theme.Blue700
 import com.todo.todolistmobileapp.ui.theme.TodoListMobileAppTheme
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.input.KeyboardType
 
 @Composable
 fun LoginContent() {
@@ -86,6 +95,13 @@ fun BoxHeader() {
 
 @Composable
 fun CardForm() {
+
+    var email by remember {
+        mutableStateOf("")
+    }
+    var password by remember {
+        mutableStateOf("")
+    }
     Card(
         modifier = Modifier.padding(start = 30.dp, end = 30.dp),
     ) {
@@ -112,29 +128,37 @@ fun CardForm() {
                 )
             }
 
+            DefaultTextField(
+                modifier = Modifier.padding(top = 25.dp),
+                value = email,
+                onValueChange = { email = it },
+                label = "Email",
+                icon = Icons.Default.Email,
+                keyboardType = KeyboardType.Email
+            )
+            DefaultTextField(
+                modifier = Modifier.padding(top = 25.dp),
+                value = password,
+                onValueChange = { password = it },
+                label = "Password",
+                icon = Icons.Default.Lock,
+                hideText = true
+            )
 
-            OutlinedTextField(value = "", onValueChange = {}, label = {
-                Text(text = "Correo")
-            }, leadingIcon = {
-                Icon(imageVector = Icons.Default.Email, contentDescription = "", tint = Color.Gray)
-            })
+
             Spacer(modifier = Modifier.height(10.dp))
-            OutlinedTextField(value = "", onValueChange = {}, label = {
-                Text(text = "Contraseña")
-            }, leadingIcon = {
-                Icon(imageVector = Icons.Default.Lock, contentDescription = "", tint = Color.Gray)
-            })
 
-            Button(modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 30.dp), onClick = { }) {
-                Icon(
-                    imageVector = Icons.Default.ArrowForward,
-                    contentDescription = "",
-                    tint = Color.White
-                )
-                Text(text = "Iniciar ")
-            }
+
+            /*  OutlinedTextField(value = "", onValueChange = {}, label = {
+                  Text(text = "Contraseña")
+              }, leadingIcon = {
+                  Icon(imageVector = Icons.Default.Lock, contentDescription = "", tint = Color.Gray)
+              })*/
+            DefaultButton(
+                text = "Ingresar",
+                description = "Ingresar a la app",
+                onClick = { })
+
 
         }
     }
