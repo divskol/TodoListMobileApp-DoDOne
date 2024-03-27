@@ -1,5 +1,6 @@
 package com.todo.todolistmobileapp.presentation.views.login.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,10 +15,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.todo.todolistmobileapp.presentation.navigation.AppScreen
 import com.todo.todolistmobileapp.ui.theme.TodoListMobileAppTheme
 
 @Composable
-fun LoginBottomBar() {
+fun LoginBottomBar(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -27,6 +31,7 @@ fun LoginBottomBar() {
         Text(text = "¿No tienes cuenta?", fontSize = 14.sp, color = Color.Gray)
         Spacer(modifier = Modifier.width(5.dp))
         Text(
+            modifier = Modifier.clickable { navController.navigate(route = AppScreen.Signup.route) },
             text = "¡Registrate aquí!",
             fontSize = 14.sp,
             color = Color.Black,
@@ -40,6 +45,6 @@ fun LoginBottomBar() {
 @Composable
 fun PreviewLoginBottomBar() {
     TodoListMobileAppTheme {
-        LoginBottomBar()
+        LoginBottomBar(rememberNavController())
     }
 }
