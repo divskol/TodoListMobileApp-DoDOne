@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.todo.todolistmobileapp.presentation.components.DefaultTopBar
+import com.todo.todolistmobileapp.presentation.views.signup.components.SignupContent
 import com.todo.todolistmobileapp.ui.theme.TodoListMobileAppTheme
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -28,7 +29,7 @@ fun SignupScreen(navController: NavHostController) {
             )
         },
         content = {
-            Text(text = "gdfg")
+           SignupContent();
         },
         bottomBar = {}
     )

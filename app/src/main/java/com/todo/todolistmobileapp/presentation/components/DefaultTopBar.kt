@@ -16,6 +16,7 @@ import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.ModifierLocal
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -33,7 +34,7 @@ fun DefaultTopBar(
         title = {
             Text(text = title, fontSize = 19.sp)
         },
-        Modifier.background(Color.Blue),
+       modifier = Modifier.background(Color.LightGray),
         navigationIcon = {
             if (upAvailable) {
                 IconButton(onClick = { navController?.popBackStack() }) {
@@ -56,7 +57,7 @@ fun PreviewTop() {
     TodoListMobileAppTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
+            color = MaterialTheme.colorScheme.onPrimary
         ) {
 
             DefaultTopBar(title = "fdsf", upAvailable = true, rememberNavController())

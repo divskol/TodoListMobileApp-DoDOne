@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -41,7 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.KeyboardType
 
 @Composable
-fun SignContent() {
+fun SignupContent() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -63,11 +65,11 @@ fun SignContent() {
 fun BoxHeader() {
     Box(
         modifier = Modifier
-            .height(250.dp)
+            .height(230.dp)
             .fillMaxWidth(),
 
 
-    ) {
+        ) {
         Column(
             modifier = Modifier
                 .align(Alignment.Center),
@@ -75,12 +77,11 @@ fun BoxHeader() {
         ) {
 
             Image(
-                modifier = Modifier.height(180.dp),
-                painter = painterResource(id = R.drawable.foto1),
+                modifier = Modifier.height(120.dp),
+                painter = painterResource(id = R.drawable.inicio),
                 contentDescription = "Control de inicio"
             )
 
-            Text(text = "TODO LIST RD", fontSize = 40.sp, color = Color.Black)
         }
 
     }
@@ -89,14 +90,22 @@ fun BoxHeader() {
 @Composable
 fun CardForm() {
 
+    var username by remember {
+        mutableStateOf("")
+
+    }
+
     var email by remember {
         mutableStateOf("")
     }
     var password by remember {
         mutableStateOf("")
     }
+    var confirmPassword by remember {
+        mutableStateOf("")
+    }
     Card(
-        modifier = Modifier.padding(start = 30.dp, end = 30.dp)
+        modifier = Modifier.padding(start = 30.dp, end = 30.dp, top = 1.dp)
     ) {
         Column(
             modifier = Modifier.padding(horizontal = 10.dp)
@@ -109,7 +118,7 @@ fun CardForm() {
             ) {
 
                 Text(
-                    text = "LOGIN",
+                    text = "REGISTRO",
                     fontWeight = FontWeight.Bold,
                     fontSize = 25.sp,
                     textAlign = TextAlign.Left
@@ -117,10 +126,17 @@ fun CardForm() {
                 Spacer(modifier = Modifier.height(5.dp))
 
                 Text(
-                    text = "Por favor inicia sesión para continuar", fontSize = 10.sp
+                    text = "Por favor ingresa estos datos para continuar", fontSize = 10.sp
                 )
             }
 
+            DefaultTextField(
+                modifier = Modifier.padding(top = 25.dp),
+                value = username,
+                onValueChange = { username = it },
+                label = "Nombre de usuario",
+                icon = Icons.Default.Person,
+            )
             DefaultTextField(
                 modifier = Modifier.padding(top = 25.dp),
                 value = email,
@@ -137,6 +153,14 @@ fun CardForm() {
                 icon = Icons.Default.Lock,
                 hideText = true
             )
+            DefaultTextField(
+                modifier = Modifier.padding(top = 25.dp),
+                value = confirmPassword,
+                onValueChange = { confirmPassword = it },
+                label = "Confirmar contraseña",
+                icon = Icons.Outlined.Lock,
+                hideText = true
+            )
 
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -148,8 +172,8 @@ fun CardForm() {
                   Icon(imageVector = Icons.Default.Lock, contentDescription = "", tint = Color.Gray)
               })*/
             DefaultButton(
-                text = "Ingresar",
-                description = "Ingresar a la app",
+                text = "Registrarme",
+                description = "Registro de usuario",
                 onClick = { })
 
 
@@ -159,8 +183,8 @@ fun CardForm() {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun GreetingPreview() {
+fun PreviewSignUpContent() {
     TodoListMobileAppTheme {
-        SignContent()
+        SignupContent()
     }
 }
