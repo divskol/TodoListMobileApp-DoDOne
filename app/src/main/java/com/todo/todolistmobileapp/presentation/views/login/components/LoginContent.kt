@@ -121,14 +121,16 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                DefaultButton(text = "Ingresar", description = "Ingresar a la app",
+                DefaultButton(
+                    text = "Ingresar", description = "Ingresar a la app",
                     onClick = {
                         Log.d(
                             "LoginContent", "Email.: ${viewModel.email.value}"
                         )
                         Log.d("LoginContent", "Password : ${viewModel.password.value}")
-                    })
-
+                    },
+                    enabled = viewModel.isEnabledLoginButton
+                )
 
             }
         }

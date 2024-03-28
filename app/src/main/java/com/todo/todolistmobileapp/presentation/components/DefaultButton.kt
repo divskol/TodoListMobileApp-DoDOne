@@ -22,23 +22,25 @@ fun DefaultButton(
     description: String,
     onClick: () -> Unit,
     color: Color = Blue700,
-    icon: ImageVector = Icons.Default.ArrowForward
+    icon: ImageVector = Icons.Default.ArrowForward,
+    enabled: Boolean = true
 ) {
 
-   Column {
-       Button(
-           modifier = Modifier
-               .fillMaxWidth()
-               .padding(vertical = 30.dp),
-           colors = ButtonDefaults.buttonColors(contentColor = color),
-           onClick = { onClick() }
-       ) {
-           Icon(
-               imageVector = icon,
-               contentDescription = description,
-               tint = Color.White
-           )
-           Text(text = text, color=Color.White)
-       }
-   }
+    Column {
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 30.dp),
+            colors = ButtonDefaults.buttonColors(contentColor = color),
+            onClick = { onClick() },
+            enabled = enabled
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = description,
+                tint = Color.White
+            )
+            Text(text = text, color = Color.White)
+        }
+    }
 }

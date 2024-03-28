@@ -22,25 +22,33 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     var isPasswordValid: MutableState<Boolean> = mutableStateOf(false)
     var passwordlErrMsg: MutableState<String> = mutableStateOf("")
 
+    var isEnabledLoginButton = false
+
     fun validateEmail() {
         if (Patterns.EMAIL_ADDRESS.matcher(email.value).matches()) {
             isEmailValid.value = true
-            emailErrMsg.value=""
-        }else{
+            emailErrMsg.value = ""
+        } else {
             isEmailValid.value = false
-            emailErrMsg.value=" El email no es valido"
+            emailErrMsg.value = " El email no es valido"
 
         }
+        enabledLoginButton()
     }
 
     fun validatePassword() {
-        if (password.value.length>=6) {
+        if (password.value.length >= 6) {
             isPasswordValid.value = true
-            passwordlErrMsg.value=""
-        }else{
+            passwordlErrMsg.value = ""
+        } else {
             isPasswordValid.value = false
-            passwordlErrMsg.value="Al menos requiere 6 caracteres"
+            passwordlErrMsg.value = "Al menos requiere 6 caracteres"
 
         }
+        enabledLoginButton()
+    }
+
+    fun enabledLoginButton() {
+        isEnabledLoginButton = isEmailValid.value && isPasswordValid.value
     }
 }
