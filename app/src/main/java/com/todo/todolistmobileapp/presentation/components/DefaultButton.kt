@@ -1,5 +1,6 @@
 package com.todo.todolistmobileapp.presentation.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -24,18 +25,20 @@ fun DefaultButton(
     icon: ImageVector = Icons.Default.ArrowForward
 ) {
 
-    Button(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 30.dp),
-        colors = ButtonDefaults.buttonColors(contentColor = color),
-        onClick = { onClick() }
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = description,
-            tint = Color.White
-        )
-        Text(text = text, color=Color.White)
-    }
+   Column {
+       Button(
+           modifier = Modifier
+               .fillMaxWidth()
+               .padding(vertical = 30.dp),
+           colors = ButtonDefaults.buttonColors(contentColor = color),
+           onClick = { onClick() }
+       ) {
+           Icon(
+               imageVector = icon,
+               contentDescription = description,
+               tint = Color.White
+           )
+           Text(text = text, color=Color.White)
+       }
+   }
 }
