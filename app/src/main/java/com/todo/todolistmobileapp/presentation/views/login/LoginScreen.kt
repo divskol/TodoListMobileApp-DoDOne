@@ -14,6 +14,7 @@ import com.todo.todolistmobileapp.presentation.views.login.components.LoginConte
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun LoginScreen(navController: NavController) {
+
     Scaffold(
         topBar = {},
         content = { LoginContent() },

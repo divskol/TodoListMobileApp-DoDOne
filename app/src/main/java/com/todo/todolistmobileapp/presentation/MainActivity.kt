@@ -13,7 +13,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.todo.todolistmobileapp.presentation.navigation.AppNavigation
 import com.todo.todolistmobileapp.ui.theme.TodoListMobileAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
 
