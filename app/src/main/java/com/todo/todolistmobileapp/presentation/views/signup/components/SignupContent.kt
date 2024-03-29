@@ -41,9 +41,11 @@ import com.todo.todolistmobileapp.ui.theme.TodoListMobileAppTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.todo.todolistmobileapp.presentation.views.signup.SignupViewModel
 
 @Composable
-fun SignupContent() {
+fun SignupContent(viewModel: SignupViewModel = hiltViewModel()) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -52,139 +54,105 @@ fun SignupContent() {
             .wrapContentHeight()
             .padding(12.dp),
     ) {
-
-
-        BoxHeader()
-        CardForm()
-
-    }
-}
-
-
-@Composable
-fun BoxHeader() {
-    Box(
-        modifier = Modifier
-            .height(230.dp)
-            .fillMaxWidth(),
-
-
-        ) {
-        Column(
+        Box(
             modifier = Modifier
-                .align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+                .height(80.dp)
+                .fillMaxWidth(),
 
-            Image(
-                modifier = Modifier.height(120.dp),
-                painter = painterResource(id = R.drawable.inicio),
-                contentDescription = "Control de inicio"
-            )
 
-        }
-
-    }
-}
-
-@Composable
-fun CardForm() {
-
-    var username by remember {
-        mutableStateOf("")
-
-    }
-
-    var email by remember {
-        mutableStateOf("")
-    }
-    var password by remember {
-        mutableStateOf("")
-    }
-    var confirmPassword by remember {
-        mutableStateOf("")
-    }
-    Card(
-        modifier = Modifier.padding(start = 30.dp, end = 30.dp, top = 1.dp)
-    ) {
-        Column(
-            modifier = Modifier.padding(horizontal = 10.dp)
-        ) {
-
+            ) {
             Column(
                 modifier = Modifier
-                    .align(alignment = Alignment.Start)
-                    .padding(15.dp)
+                    .align(Alignment.Center),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                Text(
-                    text = "REGISTRO",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 25.sp,
-                    textAlign = TextAlign.Left
+                Image(
+                    modifier = Modifier.height(150.dp),
+                    painter = painterResource(id = R.drawable.inicio),
+                    contentDescription = "Control de inicio"
                 )
-                Spacer(modifier = Modifier.height(5.dp))
 
-                Text(
-                    text = "Por favor ingresa estos datos para continuar", fontSize = 10.sp
-                )
             }
 
-            DefaultTextField(
-                modifier = Modifier.padding(top = 25.dp),
-                value = username,
-                onValueChange = { username = it },
-                label = "Nombre de usuario",
-                icon = Icons.Default.Person,
-            )
-            DefaultTextField(
-                modifier = Modifier.padding(top = 25.dp),
-                value = email,
-                onValueChange = { email = it },
-                label = "Email",
-                icon = Icons.Default.Email,
-                keyboardType = KeyboardType.Email
-            )
-            DefaultTextField(
-                modifier = Modifier.padding(top = 25.dp),
-                value = password,
-                onValueChange = { password = it },
-                label = "Password",
-                icon = Icons.Default.Lock,
-                hideText = true
-            )
-            DefaultTextField(
-                modifier = Modifier.padding(top = 25.dp),
-                value = confirmPassword,
-                onValueChange = { confirmPassword = it },
-                label = "Confirmar contraseña",
-                icon = Icons.Outlined.Lock,
-                hideText = true
-            )
-
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-
-            /*  OutlinedTextField(value = "", onValueChange = {}, label = {
-                  Text(text = "Contraseña")
-              }, leadingIcon = {
-                  Icon(imageVector = Icons.Default.Lock, contentDescription = "", tint = Color.Gray)
-              })*/
-            DefaultButton(
-                text = "Registrarme",
-                description = "Registro de usuario",
-                onClick = { })
-
-
         }
-    }
-}
+        Card(
+            modifier = Modifier.padding(start = 30.dp, end = 30.dp, top = 10.dp)
+        ) {
+            Column(
+                modifier = Modifier.padding(horizontal = 10.dp)
+            ) {
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun PreviewSignUpContent() {
-    TodoListMobileAppTheme {
-        SignupContent()
+                Column(
+                    modifier = Modifier
+                        .align(alignment = Alignment.Start)
+                        .padding(5.dp)
+                ) {
+
+                    Text(
+                        text = "REGISTRO",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 25.sp,
+                        textAlign = TextAlign.Left
+                    )
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    Text(
+                        text = "Por favor ingresa estos datos para continuar", fontSize = 10.sp
+                    )
+                }
+
+                DefaultTextField(
+                    modifier = Modifier.padding(top = 5.dp),
+                    value = viewModel.username.value,
+                    onValueChange = { viewModel.username.value = it },
+                    label = "Nombre de usuario",
+                    icon = Icons.Default.Person,
+                    errorMsg = viewModel.usernameErrMsg.value,
+                    validateField = {viewModel.validateUsername()}
+                )
+                DefaultTextField(
+                    modifier = Modifier.padding(top = 2.dp),
+                    value = viewModel.email.value,
+                    onValueChange = { viewModel.email.value = it },
+                    label = "Email",
+                    icon = Icons.Default.Email,
+                    keyboardType = KeyboardType.Email,
+                    errorMsg = viewModel.emailErrMsg.value,
+                    validateField = {viewModel.validateEmail()}
+                )
+                DefaultTextField(
+                    modifier = Modifier.padding(top = 2.dp),
+                    value = viewModel.password.value,
+                    onValueChange = { viewModel.password.value = it },
+                    label = "Password",
+                    icon = Icons.Default.Lock,
+                    hideText = true,
+                    errorMsg = viewModel.passwordlErrMsg.value,
+                    validateField = {viewModel.validatePassword()}
+                )
+                DefaultTextField(
+                    modifier = Modifier.padding(top = 2.dp),
+                    value = viewModel.confirmPassword.value,
+                    onValueChange = { viewModel.confirmPassword.value = it },
+                    label = "Confirmar contraseña",
+                    icon = Icons.Outlined.Lock,
+                    hideText = true,
+                    errorMsg = viewModel.confirmPasswordErrMsg.value,
+                    validateField = {viewModel.validateConfirmPassword()}
+                )
+
+
+
+                DefaultButton(
+                    text = "Registrarme",
+                    description = "Registro de usuario",
+                    onClick = { }, enabled = viewModel.isEnabledLoginButton)
+
+
+            }
+        }
+
+
     }
 }

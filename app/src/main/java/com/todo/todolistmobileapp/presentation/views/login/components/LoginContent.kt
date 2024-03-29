@@ -118,7 +118,6 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
                     }
                 )
 
-
                 Spacer(modifier = Modifier.height(10.dp))
 
                 DefaultButton(
@@ -131,10 +130,8 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
                     },
                     enabled = viewModel.isEnabledLoginButton
                 )
-
             }
         }
-
     }
 }
 
