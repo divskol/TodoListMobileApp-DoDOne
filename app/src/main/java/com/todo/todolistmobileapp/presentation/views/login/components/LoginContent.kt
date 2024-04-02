@@ -1,12 +1,14 @@
 package com.todo.todolistmobileapp.presentation.views.login.components
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,11 +17,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -30,10 +35,13 @@ import com.todo.todolistmobileapp.presentation.components.DefaultButton
 import com.todo.todolistmobileapp.presentation.components.DefaultTextField
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.todo.todolistmobileapp.domain.model.Response
 import com.todo.todolistmobileapp.presentation.views.login.LoginViewModel
 
 @Composable
 fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
+    val loginFlow = viewModel.loginFlow.collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -123,15 +131,40 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
                 DefaultButton(
                     text = "Ingresar", description = "Ingresar a la app",
                     onClick = {
-                        Log.d(
-                            "LoginContent", "Email.: ${viewModel.email.value}"
-                        )
-                        Log.d("LoginContent", "Password : ${viewModel.password.value}")
+                       viewModel.login()
                     },
                     enabled = viewModel.isEnabledLoginButton
                 )
             }
         }
+    }
+
+    loginFlow.value.let {
+        when (it) {
+            Response.Loading -> {
+                Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                    CircularProgressIndicator()
+                }
+            }
+
+            is Response.Success -> {
+                Toast.makeText(LocalContext.current, "Usuaerio logeaod", Toast.LENGTH_LONG).show()
+            }
+
+            is Response.Failure -> {
+                Toast.makeText(
+                    LocalContext.current,
+                    it.exception?.message ?: "Error",
+                    Toast.LENGTH_LONG
+                ).show()
+
+            }
+
+            else -> {
+
+            }
+        }
+
     }
 }
 
