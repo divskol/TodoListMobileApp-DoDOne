@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:977098394104:android:d002d8a256722a82c9ee0d",
         "android_client_info": {
-          "package_name": "com.todo.todolistmobileapp.presentation"
+          "package_name": "com.todo.todolistmobileapp"
         }
       },
       "oauth_client": [],
