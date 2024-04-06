@@ -20,6 +20,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,11 +36,14 @@ import com.todo.todolistmobileapp.presentation.components.DefaultButton
 import com.todo.todolistmobileapp.presentation.components.DefaultTextField
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.todo.todolistmobileapp.domain.model.Response
+import com.todo.todolistmobileapp.presentation.navigation.AppScreen
 import com.todo.todolistmobileapp.presentation.views.login.LoginViewModel
 
 @Composable
-fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
+fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
     val loginFlow = viewModel.loginFlow.collectAsState()
 
     Column(
@@ -131,7 +135,7 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
                 DefaultButton(
                     text = "Ingresar", description = "Ingresar a la app",
                     onClick = {
-                       viewModel.login()
+                        viewModel.login()
                     },
                     enabled = viewModel.isEnabledLoginButton
                 )
@@ -148,7 +152,10 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
             }
 
             is Response.Success -> {
-                Toast.makeText(LocalContext.current, "Usuario Logeado", Toast.LENGTH_LONG).show()
+                LaunchedEffect(Unit) {
+                    navController.navigate(route = AppScreen.Profile.route)
+                }
+//                Toast.makeText(LocalContext.current, "Usuario Logeado", Toast.LENGTH_LONG).show()
             }
 
             is Response.Failure -> {

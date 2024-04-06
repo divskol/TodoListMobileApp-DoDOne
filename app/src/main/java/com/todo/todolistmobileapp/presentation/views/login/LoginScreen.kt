@@ -5,6 +5,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.todo.todolistmobileapp.ui.theme.TodoListMobileAppTheme
 import com.todo.todolistmobileapp.presentation.views.login.components.LoginBottomBar
@@ -13,11 +14,11 @@ import com.todo.todolistmobileapp.presentation.views.login.components.LoginConte
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavHostController) {
 
     Scaffold(
         topBar = {},
-        content = { LoginContent() },
+        content = { LoginContent(navController) },
         bottomBar = { LoginBottomBar(navController) }
     )
 }
