@@ -6,6 +6,7 @@ import com.todo.todolistmobileapp.domain.repository.AuthRepository
 import com.todo.todolistmobileapp.domain.use_cases.auth.AuthUseCases
 import com.todo.todolistmobileapp.domain.use_cases.auth.GetCurrentUser
 import com.todo.todolistmobileapp.domain.use_cases.auth.Login
+import com.todo.todolistmobileapp.domain.use_cases.auth.Logout
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,6 +23,10 @@ object AppModule {
 
     @Provides
     fun provideAuthUseCases(repository: AuthRepository) =
-        AuthUseCases(currentUser = GetCurrentUser(repository), login = Login(repository))
+        AuthUseCases(
+            currentUser = GetCurrentUser(repository),
+            login = Login(repository),
+            logout = Logout(repository)
+        )
 
 }
