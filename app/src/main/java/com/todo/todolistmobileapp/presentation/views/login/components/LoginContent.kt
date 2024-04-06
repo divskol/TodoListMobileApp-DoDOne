@@ -148,13 +148,13 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
             }
 
             is Response.Success -> {
-                Toast.makeText(LocalContext.current, "Usuaerio logeaod", Toast.LENGTH_LONG).show()
+                Toast.makeText(LocalContext.current, "Usuario Logeado", Toast.LENGTH_LONG).show()
             }
 
             is Response.Failure -> {
                 Toast.makeText(
                     LocalContext.current,
-                    it.exception?.message ?: "Error",
+                    it.exception?.message ?: "Error ingreso",
                     Toast.LENGTH_LONG
                 ).show()
 
