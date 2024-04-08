@@ -91,7 +91,7 @@ fun ProfileContent(
             description = "Cerrar session actual",
             icon = Icons.Default.Edit,
             onClick = {
-
+                navController.navigate(AppScreen.ProfileEdit.route)
             })
         DefaultButton(
             text = "Cerrar sesión",
