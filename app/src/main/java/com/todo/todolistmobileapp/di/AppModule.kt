@@ -20,6 +20,7 @@ import com.todo.todolistmobileapp.core.Constants.USERS
 import com.todo.todolistmobileapp.data.repository.UsersRepositoryImpl
 import com.todo.todolistmobileapp.domain.repository.UsersRepository
 import com.todo.todolistmobileapp.domain.use_cases.users.Create
+import com.todo.todolistmobileapp.domain.use_cases.users.GetUserById
 import com.todo.todolistmobileapp.domain.use_cases.users.UsersUseCase
 
 @InstallIn(SingletonComponent::class)
@@ -52,5 +53,5 @@ object AppModule {
 
     @Provides
     fun provideUsersUseCases(repository: UsersRepository) =
-        UsersUseCase(create = Create(repository))
+        UsersUseCase(create = Create(repository), getUserById = GetUserById(repository))
 }
