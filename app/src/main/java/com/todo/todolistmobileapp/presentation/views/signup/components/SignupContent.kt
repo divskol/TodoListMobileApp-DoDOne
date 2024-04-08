@@ -169,11 +169,9 @@ fun SignupContent(navController: NavHostController, viewModel: SignupViewModel =
 
             is Response.Success -> {
                 LaunchedEffect(Unit) {
-                    navController.navigate(route = AppScreen.Profile.route) {
-                        popUpTo(AppScreen.Login.route) {
-                            inclusive = true
-                        }
-                    }
+                    // Recibe la ruta inicial con la que corre la app
+                    navController.popBackStack(AppScreen.Login.route, inclusive = true)
+                    navController.navigate(route = AppScreen.Profile.route)
                 }
 //            Toast.makeText(LocalContext.current, "Usuario Logeado", Toast.LENGTH_LONG).show()
             }
