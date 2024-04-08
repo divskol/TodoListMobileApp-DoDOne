@@ -1,6 +1,7 @@
 package com.todo.todolistmobileapp.presentation.views.profile_edit
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -9,7 +10,9 @@ import com.todo.todolistmobileapp.presentation.views.profile_edit.components.Pro
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ProfileEditScreen(navController: NavHostController) {
+fun ProfileEditScreen(navController: NavHostController, user: String) {
+
+    // Log.d("ProfileEditLog", "Usuario:$user")
     Scaffold(
         topBar = {
             DefaultTopBar(title = "Actualizar", upAvailable = true, navController = navController)
