@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.todo.todolistmobileapp.domain.model.Response
 import com.todo.todolistmobileapp.domain.model.User
 import com.todo.todolistmobileapp.domain.use_cases.auth.AuthUseCases
+import com.todo.todolistmobileapp.domain.use_cases.users.UsersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,7 +17,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignupViewModel @Inject constructor(private val authUseCases: AuthUseCases) : ViewModel() {
+class SignupViewModel @Inject constructor(
+    private val authUseCases: AuthUseCases,
+    private val usersUseCase: UsersUseCase
+) : ViewModel() {
     var username: MutableState<String> = mutableStateOf("")
     var isUsernameValid: MutableState<Boolean> = mutableStateOf(false)
     var usernameErrMsg: MutableState<String> = mutableStateOf("")
@@ -42,9 +46,12 @@ class SignupViewModel @Inject constructor(private val authUseCases: AuthUseCases
     private val _signupFlow = MutableStateFlow<Response<FirebaseUser>?>(null)
     var signupFlow: StateFlow<Response<FirebaseUser>?> = _signupFlow
 
+    var user = User();
 
     fun onSignup() {
-        val user = User(username = username.value, email = email.value, password = password.value)
+        user.username = username.value
+        user.email = email.value
+        user.password = password.value
         signup(user)
     }
 
@@ -52,6 +59,14 @@ class SignupViewModel @Inject constructor(private val authUseCases: AuthUseCases
         _signupFlow.value = Response.Loading
         val result = authUseCases.signup(user)
         _signupFlow.value = result
+    }
+
+    fun createUser() {
+        viewModelScope.launch {
+            user.id = authUseCases.currentUser()!!.uid
+            usersUseCase.create(user)
+        }
+
     }
 
 
