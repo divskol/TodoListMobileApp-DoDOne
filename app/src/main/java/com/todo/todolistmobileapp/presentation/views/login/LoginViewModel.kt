@@ -1,7 +1,6 @@
 package com.todo.todolistmobileapp.presentation.views.login
 
 import android.util.Patterns
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,8 +10,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.todo.todolistmobileapp.domain.model.Response
 import com.todo.todolistmobileapp.domain.use_cases.auth.AuthUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,10 +20,12 @@ class LoginViewModel @Inject constructor(private val authUseCases: AuthUseCases)
         private set
 
 
-    //Email
+    //Email Validations
 
     var isEmailValid by mutableStateOf(false)
+        private set
     var emailErrMsg by mutableStateOf("")
+        private set
 
 
     var isPasswordValid by mutableStateOf(false)

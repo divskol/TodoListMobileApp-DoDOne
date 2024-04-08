@@ -45,8 +45,7 @@ import com.todo.todolistmobileapp.presentation.views.signup.SignupViewModel
 
 @Composable
 fun SignupContent(navController: NavHostController, viewModel: SignupViewModel = hiltViewModel()) {
-
-    val signupFlow = viewModel.signupFlow.collectAsState()
+    val state = viewModel.state
 
     Column(
         modifier = Modifier
@@ -106,41 +105,41 @@ fun SignupContent(navController: NavHostController, viewModel: SignupViewModel =
 
                 DefaultTextField(
                     modifier = Modifier.padding(top = 5.dp),
-                    value = viewModel.username.value,
-                    onValueChange = { viewModel.username.value = it },
+                    value = state.username,
+                    onValueChange = { viewModel.onUsernameInput(it) },
                     label = "Nombre de usuario",
                     icon = Icons.Default.Person,
-                    errorMsg = viewModel.usernameErrMsg.value,
+                    errorMsg = viewModel.usernameErrMsg,
                     validateField = { viewModel.validateUsername() }
                 )
                 DefaultTextField(
                     modifier = Modifier.padding(top = 2.dp),
-                    value = viewModel.email.value,
-                    onValueChange = { viewModel.email.value = it },
+                    value = state.email,
+                    onValueChange = { viewModel.onEmailInput(it) },
                     label = "Email",
                     icon = Icons.Default.Email,
                     keyboardType = KeyboardType.Email,
-                    errorMsg = viewModel.emailErrMsg.value,
+                    errorMsg = viewModel.emailErrMsg,
                     validateField = { viewModel.validateEmail() }
                 )
                 DefaultTextField(
                     modifier = Modifier.padding(top = 2.dp),
-                    value = viewModel.password.value,
-                    onValueChange = { viewModel.password.value = it },
+                    value = state.password,
+                    onValueChange = { viewModel.onPasswordInput(it) },
                     label = "Password",
                     icon = Icons.Default.Lock,
                     hideText = true,
-                    errorMsg = viewModel.passwordlErrMsg.value,
+                    errorMsg = viewModel.passwordlErrMsg,
                     validateField = { viewModel.validatePassword() }
                 )
                 DefaultTextField(
                     modifier = Modifier.padding(top = 2.dp),
-                    value = viewModel.confirmPassword.value,
-                    onValueChange = { viewModel.confirmPassword.value = it },
+                    value = state.confirmPassword,
+                    onValueChange = { viewModel.onConfirmPasswordInput(it) },
                     label = "Confirmar contraseña",
                     icon = Icons.Outlined.Lock,
                     hideText = true,
-                    errorMsg = viewModel.confirmPasswordErrMsg.value,
+                    errorMsg = viewModel.confirmPasswordErrMsg,
                     validateField = { viewModel.validateConfirmPassword() }
                 )
 
@@ -159,37 +158,7 @@ fun SignupContent(navController: NavHostController, viewModel: SignupViewModel =
 
     }
 
-    // Verificar estado
-    signupFlow.value.let { response ->
-        when (response) {
-            Response.Loading -> {
-                ProgressBar()
-            }
 
-            is Response.Success -> {
-                LaunchedEffect(Unit) {
-                    viewModel.createUser()
-
-                    // Recibe la ruta inicial con la que corre la app
-                    navController.popBackStack(AppScreen.Login.route, inclusive = true)
-                    navController.navigate(route = AppScreen.Profile.route)
-                }
-//            Toast.makeText(LocalContext.current, "Usuario Logeado", Toast.LENGTH_LONG).show()
-            }
-
-            is Response.Failure -> {
-                Toast.makeText(
-                    LocalContext.current,
-                    response.exception?.message ?: "Error ingreso",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-
-            else -> {
-                // Código a ejecutar cuando response no es Response.Loading
-            }
-        }
-    }
 
 
 }
