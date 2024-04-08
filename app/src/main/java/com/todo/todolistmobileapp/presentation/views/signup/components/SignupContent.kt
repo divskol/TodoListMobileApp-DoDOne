@@ -39,6 +39,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.todo.todolistmobileapp.domain.model.Response
+import com.todo.todolistmobileapp.presentation.components.ProgressBar
 import com.todo.todolistmobileapp.presentation.navigation.AppScreen
 import com.todo.todolistmobileapp.presentation.views.signup.SignupViewModel
 
@@ -162,9 +163,7 @@ fun SignupContent(navController: NavHostController, viewModel: SignupViewModel =
     signupFlow.value.let { response ->
         when (response) {
             Response.Loading -> {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    CircularProgressIndicator()
-                }
+                ProgressBar()
             }
 
             is Response.Success -> {

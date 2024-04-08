@@ -7,6 +7,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.todo.todolistmobileapp.presentation.views.login.components.Login
 import com.todo.todolistmobileapp.ui.theme.TodoListMobileAppTheme
 import com.todo.todolistmobileapp.presentation.views.login.components.LoginBottomBar
 import com.todo.todolistmobileapp.presentation.views.login.components.LoginContent
@@ -21,6 +22,8 @@ fun LoginScreen(navController: NavHostController) {
         content = { LoginContent(navController) },
         bottomBar = { LoginBottomBar(navController) }
     )
+// Manejo de estado petición login
+    Login(navController = navController)
 }
 
 
