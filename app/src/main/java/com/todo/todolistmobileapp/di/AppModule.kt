@@ -7,6 +7,7 @@ import com.todo.todolistmobileapp.domain.use_cases.auth.AuthUseCases
 import com.todo.todolistmobileapp.domain.use_cases.auth.GetCurrentUser
 import com.todo.todolistmobileapp.domain.use_cases.auth.Login
 import com.todo.todolistmobileapp.domain.use_cases.auth.Logout
+import com.todo.todolistmobileapp.domain.use_cases.auth.Signup
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +27,8 @@ object AppModule {
         AuthUseCases(
             currentUser = GetCurrentUser(repository),
             login = Login(repository),
-            logout = Logout(repository)
+            logout = Logout(repository),
+            signup = Signup(repository)
         )
 
 }

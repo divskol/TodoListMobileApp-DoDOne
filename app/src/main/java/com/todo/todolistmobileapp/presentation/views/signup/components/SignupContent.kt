@@ -1,11 +1,13 @@
 package com.todo.todolistmobileapp.presentation.views.signup.components
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,37 +17,36 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
-import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.todo.todolistmobileapp.R
 import com.todo.todolistmobileapp.presentation.components.DefaultButton
 import com.todo.todolistmobileapp.presentation.components.DefaultTextField
-import com.todo.todolistmobileapp.ui.theme.TodoListMobileAppTheme
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import com.todo.todolistmobileapp.domain.model.Response
+import com.todo.todolistmobileapp.presentation.navigation.AppScreen
 import com.todo.todolistmobileapp.presentation.views.signup.SignupViewModel
 
 @Composable
-fun SignupContent(viewModel: SignupViewModel = hiltViewModel()) {
+fun SignupContent(navController: NavHostController, viewModel: SignupViewModel = hiltViewModel()) {
+
+    val signupFlow = viewModel.signupFlow.collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -109,7 +110,7 @@ fun SignupContent(viewModel: SignupViewModel = hiltViewModel()) {
                     label = "Nombre de usuario",
                     icon = Icons.Default.Person,
                     errorMsg = viewModel.usernameErrMsg.value,
-                    validateField = {viewModel.validateUsername()}
+                    validateField = { viewModel.validateUsername() }
                 )
                 DefaultTextField(
                     modifier = Modifier.padding(top = 2.dp),
@@ -119,7 +120,7 @@ fun SignupContent(viewModel: SignupViewModel = hiltViewModel()) {
                     icon = Icons.Default.Email,
                     keyboardType = KeyboardType.Email,
                     errorMsg = viewModel.emailErrMsg.value,
-                    validateField = {viewModel.validateEmail()}
+                    validateField = { viewModel.validateEmail() }
                 )
                 DefaultTextField(
                     modifier = Modifier.padding(top = 2.dp),
@@ -129,7 +130,7 @@ fun SignupContent(viewModel: SignupViewModel = hiltViewModel()) {
                     icon = Icons.Default.Lock,
                     hideText = true,
                     errorMsg = viewModel.passwordlErrMsg.value,
-                    validateField = {viewModel.validatePassword()}
+                    validateField = { viewModel.validatePassword() }
                 )
                 DefaultTextField(
                     modifier = Modifier.padding(top = 2.dp),
@@ -139,7 +140,7 @@ fun SignupContent(viewModel: SignupViewModel = hiltViewModel()) {
                     icon = Icons.Outlined.Lock,
                     hideText = true,
                     errorMsg = viewModel.confirmPasswordErrMsg.value,
-                    validateField = {viewModel.validateConfirmPassword()}
+                    validateField = { viewModel.validateConfirmPassword() }
                 )
 
 
@@ -147,7 +148,8 @@ fun SignupContent(viewModel: SignupViewModel = hiltViewModel()) {
                 DefaultButton(
                     text = "Registrarme",
                     description = "Registro de usuario",
-                    onClick = { }, enabled = viewModel.isEnabledLoginButton)
+                    onClick = { viewModel.onSignup() }, enabled = viewModel.isEnabledLoginButton
+                )
 
 
             }
@@ -155,4 +157,40 @@ fun SignupContent(viewModel: SignupViewModel = hiltViewModel()) {
 
 
     }
+
+    // Verificar estado
+    signupFlow.value.let { response ->
+        when (response) {
+            Response.Loading -> {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
+            }
+
+            is Response.Success -> {
+                LaunchedEffect(Unit) {
+                    navController.navigate(route = AppScreen.Profile.route) {
+                        popUpTo(AppScreen.Login.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+//            Toast.makeText(LocalContext.current, "Usuario Logeado", Toast.LENGTH_LONG).show()
+            }
+
+            is Response.Failure -> {
+                Toast.makeText(
+                    LocalContext.current,
+                    response.exception?.message ?: "Error ingreso",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            else -> {
+                // Código a ejecutar cuando response no es Response.Loading
+            }
+        }
+    }
+
+
 }
