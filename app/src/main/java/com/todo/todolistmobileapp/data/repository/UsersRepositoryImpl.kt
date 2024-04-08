@@ -11,6 +11,7 @@ class UsersRepositoryImpl @Inject constructor(private val usersRef: CollectionRe
     UsersRepository {
     override suspend fun create(user: User): Response<Boolean> {
         return try {
+            user.password = ""
             usersRef.document(user.id).set(user).await()
             Response.Success(true)
         } catch (e: Exception) {
