@@ -9,6 +9,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.todo.todolistmobileapp.presentation.components.DefaultButton
 import com.todo.todolistmobileapp.presentation.navigation.AppScreen
+import com.todo.todolistmobileapp.presentation.views.profile.components.ProfileContent
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -19,15 +20,7 @@ fun ProfileScreen(
     Scaffold(
         topBar = {},
         content = {
-            DefaultButton(
-                text = "Cerrar sesión",
-                description = "Cerrar session actual",
-                onClick = {
-                    viewModel.logout()
-                    navController.navigate(route = AppScreen.Login.route) {
-                        popUpTo(AppScreen.Profile.route) { inclusive = true }
-                    }
-                })
+            ProfileContent(navController)
         },
         bottomBar = {})
 }

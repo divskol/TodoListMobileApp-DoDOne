@@ -3,6 +3,7 @@ package com.todo.todolistmobileapp.presentation.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.Button
@@ -29,8 +30,8 @@ fun DefaultButton(
     Column {
         Button(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 30.dp),
+                .width(300.dp)
+                .padding(vertical = 5.dp, horizontal = 10.dp),
             colors = ButtonDefaults.buttonColors(contentColor = color),
             onClick = { onClick() },
             enabled = enabled
