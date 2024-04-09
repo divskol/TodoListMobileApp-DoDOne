@@ -5,12 +5,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.todo.todolistmobileapp.domain.model.Response
 import com.todo.todolistmobileapp.domain.model.User
+import com.todo.todolistmobileapp.domain.use_cases.users.UsersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileEditViewModel @Inject constructor(private val savedStateHandle: SavedStateHandle) :
+class ProfileEditViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
+    private val usersUseCase: UsersUseCase
+) :
     ViewModel() {
 
     var state by mutableStateOf(ProfileEditState())
@@ -19,10 +26,26 @@ class ProfileEditViewModel @Inject constructor(private val savedStateHandle: Sav
         private set
     val userString = savedStateHandle.get<String>("user")
     val user = User.fromJson(userString!!)
-
+    var updateResponse by mutableStateOf<Response<Boolean>?>(null)
+        private set
 
     init {
         state = state.copy(username = user.username)
+    }
+
+    fun onUpdate() {
+        val myuser = User(
+            id = user.id,
+            username = state.username,
+            image = ""
+        )
+        update(myuser)
+    }
+
+    fun update(user: User) = viewModelScope.launch {
+        updateResponse = Response.Loading
+        val result = usersUseCase.update(user)
+        updateResponse = result
     }
 
     fun onUsernameInput(username: String) {

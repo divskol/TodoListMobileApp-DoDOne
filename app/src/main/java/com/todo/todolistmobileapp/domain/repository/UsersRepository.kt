@@ -6,5 +6,7 @@ import java.util.concurrent.Flow
 
 interface UsersRepository {
     suspend fun create(user: User): Response<Boolean>
+
+    suspend fun update(user:User): Response<Boolean>
     fun getUserById(id: String): kotlinx.coroutines.flow.Flow<User>
 }

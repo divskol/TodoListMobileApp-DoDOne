@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.todo.todolistmobileapp.presentation.components.DefaultTopBar
 import com.todo.todolistmobileapp.presentation.views.profile_edit.components.ProfileEditContent
+import com.todo.todolistmobileapp.presentation.views.profile_edit.components.Update
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -23,4 +24,5 @@ fun ProfileEditScreen(navController: NavHostController, user: String) {
         },
         bottomBar = {}
     )
+    Update()
 }

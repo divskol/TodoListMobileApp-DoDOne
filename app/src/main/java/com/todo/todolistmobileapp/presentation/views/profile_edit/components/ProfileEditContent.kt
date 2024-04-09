@@ -112,7 +112,7 @@ fun ProfileEditContent(navController: NavHostController, viewModel: ProfileEditV
                 DefaultButton(
                     text = "Actualizar datos",
                     description = "Actualizar mis datos",
-                    onClick = {  }
+                    onClick = { viewModel.onUpdate() }
                 )
 
 
