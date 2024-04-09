@@ -1,5 +1,8 @@
 package com.todo.todolistmobileapp.presentation.views.profile_edit
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -28,6 +31,24 @@ class ProfileEditViewModel @Inject constructor(
     val user = User.fromJson(userString!!)
     var updateResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
+
+
+    //IMAGES
+    var imageUri by mutableStateOf<Uri?>(null)
+
+    // CAMERA
+    var hasImage by mutableStateOf(false)
+    fun onGalleryResult(uri: Uri?) {
+        hasImage = uri != null
+        imageUri = uri
+    }
+    //FIN IMAGE
+
+
+    fun onResult(result: Boolean) {
+        hasImage = result
+
+    }
 
     init {
         state = state.copy(username = user.username)
