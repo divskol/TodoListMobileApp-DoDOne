@@ -1,5 +1,6 @@
 package com.todo.todolistmobileapp.presentation.views.profile_edit
 
+import android.content.Context
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -12,14 +13,17 @@ import androidx.lifecycle.viewModelScope
 import com.todo.todolistmobileapp.domain.model.Response
 import com.todo.todolistmobileapp.domain.model.User
 import com.todo.todolistmobileapp.domain.use_cases.users.UsersUseCase
+import com.todo.todolistmobileapp.presentation.utils.ComposeFileProvider
+import com.todo.todolistmobileapp.presentation.utils.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileEditViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val usersUseCase: UsersUseCase
+    private val usersUseCase: UsersUseCase, @ApplicationContext private val context: Context
 ) :
     ViewModel() {
 
@@ -32,22 +36,19 @@ class ProfileEditViewModel @Inject constructor(
     var updateResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
 
+    val resultingActivityHandler = ResultingActivityHandler()
 
     //IMAGES
-    var imageUri by mutableStateOf<Uri?>(null)
+    var imageUri by mutableStateOf("")
 
-    // CAMERA
-    var hasImage by mutableStateOf(false)
-    fun onGalleryResult(uri: Uri?) {
-        hasImage = uri != null
-        imageUri = uri
+    fun pickImage() = viewModelScope.launch {
+        val result = resultingActivityHandler.getContent("image/*")
+        imageUri = result.toString()
     }
-    //FIN IMAGE
 
-
-    fun onResult(result: Boolean) {
-        hasImage = result
-
+    fun takePhoto() = viewModelScope.launch {
+        val result = resultingActivityHandler.takePicturePreview()
+        imageUri = ComposeFileProvider.getPathFromBitmap(context, result!!)
     }
 
     init {

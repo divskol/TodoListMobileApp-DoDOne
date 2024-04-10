@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
@@ -44,22 +45,8 @@ fun ProfileEditContent(
     viewModel: ProfileEditViewModel = hiltViewModel()
 ) {
     val state = viewModel.state
+    viewModel.resultingActivityHandler.handle()
 
-    val imagePicker = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent(),
-        onResult = { uri ->
-            uri?.let { viewModel.onGalleryResult(it) }
-        }
-
-    )
-    val cameraLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.TakePicture(),
-        onResult = { hasImage ->
-            viewModel.onResult(hasImage)
-        }
-
-    )
-    val context = LocalContext.current
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Box {
 
@@ -83,11 +70,13 @@ fun ProfileEditContent(
                 Text(text = "aquiii")
                 Spacer(modifier = Modifier.height(60.dp))
 
-                if (viewModel.hasImage && viewModel.imageUri != null) {
+                if (viewModel.imageUri != "") {
                     AsyncImage(
                         modifier = Modifier
                             .height(100.dp)
+                            .width(100.dp)
                             .clip(CircleShape),
+                        contentScale = ContentScale.Crop,
                         model = viewModel.imageUri,
                         contentDescription = "Seleccionar imagen"
                     )
@@ -97,9 +86,8 @@ fun ProfileEditContent(
                         modifier = Modifier
                             .size(80.dp)
                             .clickable {
-                                val uri = ComposeFileProvider.getImageUri(context)
-                                viewModel.imageUri = uri
-                                cameraLauncher.launch(uri)
+//                                viewModel.pickImage()
+                                       viewModel.takePhoto()
                             },
                         painter = painterResource(
                             id = R.drawable.user1
