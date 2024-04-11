@@ -158,7 +158,7 @@ fun ProfileEditContent(
                 DefaultButton(
                     text = "Actualizar datos",
                     description = "Actualizar mis datos",
-                    onClick = { viewModel.onUpdate() }
+                    onClick = { viewModel.saveImage() }
                 )
 
 

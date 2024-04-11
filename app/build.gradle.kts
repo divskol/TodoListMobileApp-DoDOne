@@ -77,6 +77,9 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     implementation("com.google.firebase:firebase-firestore")
 
+    //storage
+    implementation("com.google.firebase:firebase-storage")
+
     //gson
     implementation("com.google.code.gson:gson:2.9.0")
 
@@ -84,6 +87,7 @@ dependencies {
     //AsyncImage
     implementation("io.coil-kt:coil-compose:2.6.0")
 
+    implementation("commons-io:commons-io:2.7")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -1,9 +1,6 @@
 package com.todo.todolistmobileapp.presentation.views.profile_edit
 
 import android.content.Context
-import android.net.Uri
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -18,6 +15,7 @@ import com.todo.todolistmobileapp.presentation.utils.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,6 +34,22 @@ class ProfileEditViewModel @Inject constructor(
     var updateResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
 
+    //IMAGE RESPONSE
+    var saveImageResponse by mutableStateOf<Response<String>?>(null)
+        private set
+
+    var file: File? = null
+    fun saveImage() = viewModelScope.launch {
+        if (file != null) {
+
+            saveImageResponse = Response.Loading
+            val result = usersUseCase.saveImage(file!!)
+            saveImageResponse = result
+        }
+    }
+//IMAGE RESPONSE
+
+
     val resultingActivityHandler = ResultingActivityHandler()
 
     //IMAGES
@@ -45,14 +59,15 @@ class ProfileEditViewModel @Inject constructor(
         val result = resultingActivityHandler.getContent("image/*")
         if (result != null) {
             imageUri = result.toString()
+            file = ComposeFileProvider.createFileFromUri(context, result)
         }
-
     }
 
     fun takePhoto() = viewModelScope.launch {
         val result = resultingActivityHandler.takePicturePreview()
         if (result != null) {
             imageUri = ComposeFileProvider.getPathFromBitmap(context, result)
+            file = File(imageUri)
         }
 
     }
@@ -61,11 +76,11 @@ class ProfileEditViewModel @Inject constructor(
         state = state.copy(username = user.username)
     }
 
-    fun onUpdate() {
+    fun onUpdate(url: String) {
         val myuser = User(
             id = user.id,
             username = state.username,
-            image = ""
+            image = url
         )
         update(myuser)
     }
