@@ -1,7 +1,10 @@
 package com.todo.todolistmobileapp.presentation.views.profile_edit.components
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -19,11 +22,12 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -35,6 +39,7 @@ import coil.compose.AsyncImage
 import com.todo.todolistmobileapp.R
 import com.todo.todolistmobileapp.presentation.components.DefaultButton
 import com.todo.todolistmobileapp.presentation.components.DefaultTextField
+import com.todo.todolistmobileapp.presentation.components.DialogCapturePicture
 import com.todo.todolistmobileapp.presentation.utils.ComposeFileProvider
 import com.todo.todolistmobileapp.presentation.views.profile_edit.ProfileEditViewModel
 
@@ -46,7 +51,13 @@ fun ProfileEditContent(
 ) {
     val state = viewModel.state
     viewModel.resultingActivityHandler.handle()
-
+    var dialogState = remember {
+        mutableStateOf(false)
+    }
+    DialogCapturePicture(status = dialogState,
+        takePhoto = { viewModel.takePhoto() },
+        pickImage = { viewModel.pickImage() }
+    )
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Box {
 
@@ -75,7 +86,9 @@ fun ProfileEditContent(
                         modifier = Modifier
                             .height(100.dp)
                             .width(100.dp)
-                            .clip(CircleShape),
+                            .clip(CircleShape)
+                            .clickable { dialogState.value = true },
+
                         contentScale = ContentScale.Crop,
                         model = viewModel.imageUri,
                         contentDescription = "Seleccionar imagen"
@@ -87,7 +100,8 @@ fun ProfileEditContent(
                             .size(80.dp)
                             .clickable {
 //                                viewModel.pickImage()
-                                       viewModel.takePhoto()
+//                                viewModel.takePhoto()
+                                dialogState.value = true
                             },
                         painter = painterResource(
                             id = R.drawable.user1
