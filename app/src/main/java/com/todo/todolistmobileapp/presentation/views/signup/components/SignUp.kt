@@ -8,7 +8,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.todo.todolistmobileapp.domain.model.Response
 import com.todo.todolistmobileapp.presentation.components.ProgressBar
-import com.todo.todolistmobileapp.presentation.navigation.AppScreen
+import com.todo.todolistmobileapp.presentation.navigation.AuthScreen
 import com.todo.todolistmobileapp.presentation.views.signup.SignupViewModel
 
 @Composable
@@ -23,8 +23,8 @@ fun SignUp(navController: NavHostController, viewModel: SignupViewModel = hiltVi
                 viewModel.createUser()
 
                 // Recibe la ruta inicial con la que corre la app
-                navController.popBackStack(AppScreen.Login.route, inclusive = true)
-                navController.navigate(route = AppScreen.Profile.route)
+                navController.popBackStack(AuthScreen.Login.route, inclusive = true)
+                navController.navigate(route = AuthScreen.Profile.route)
             }
 //            Toast.makeText(LocalContext.current, "Usuario Logeado", Toast.LENGTH_LONG).show()
         }

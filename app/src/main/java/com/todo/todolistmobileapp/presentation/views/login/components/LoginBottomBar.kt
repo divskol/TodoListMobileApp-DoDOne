@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.todo.todolistmobileapp.presentation.navigation.AppScreen
+import com.todo.todolistmobileapp.presentation.navigation.AuthScreen
 import com.todo.todolistmobileapp.ui.theme.TodoListMobileAppTheme
 
 @Composable
@@ -31,7 +31,7 @@ fun LoginBottomBar(navController: NavController) {
         Text(text = "¿No tienes cuenta?", fontSize = 14.sp, color = Color.Gray)
         Spacer(modifier = Modifier.width(5.dp))
         Text(
-            modifier = Modifier.clickable { navController.navigate(route = AppScreen.Signup.route) },
+            modifier = Modifier.clickable { navController.navigate(route = AuthScreen.Signup.route) },
             text = "¡Registrate aquí!",
             fontSize = 14.sp,
             color = Color.Black,

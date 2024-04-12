@@ -1,6 +1,5 @@
 package com.todo.todolistmobileapp.presentation.views.profile.components
 
-import android.widget.Space
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,13 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -32,11 +27,8 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.todo.todolistmobileapp.R
 import com.todo.todolistmobileapp.presentation.components.DefaultButton
-import com.todo.todolistmobileapp.presentation.navigation.AppScreen
+import com.todo.todolistmobileapp.presentation.navigation.AuthScreen
 import com.todo.todolistmobileapp.presentation.views.profile.ProfileViewModel
-import com.todo.todolistmobileapp.ui.theme.TodoListMobileAppTheme
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 
 @Composable
 fun ProfileContent(
@@ -109,7 +101,7 @@ fun ProfileContent(
             onClick = {
                 //reconoce como url no como ruta
                 //  viewModel.userData.image = URLEncoder.encode(viewModel.userData.image, StandardCharsets.UTF_8.toString())
-                navController.navigate(AppScreen.ProfileEdit.passUser(viewModel.userData.toJson()))
+                navController.navigate(AuthScreen.ProfileEdit.passUser(viewModel.userData.toJson()))
             })
         DefaultButton(
             text = "Cerrar sesión",
@@ -118,8 +110,8 @@ fun ProfileContent(
 
             onClick = {
                 viewModel.logout()
-                navController.navigate(route = AppScreen.Login.route) {
-                    popUpTo(AppScreen.Profile.route) { inclusive = true }
+                navController.navigate(route = AuthScreen.Login.route) {
+                    popUpTo(AuthScreen.Profile.route) { inclusive = true }
                 }
             })
     }
