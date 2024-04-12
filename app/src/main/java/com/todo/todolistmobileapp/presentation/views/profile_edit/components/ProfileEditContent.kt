@@ -81,7 +81,7 @@ fun ProfileEditContent(
                 Text(text = "aquiii")
                 Spacer(modifier = Modifier.height(60.dp))
 
-                if (viewModel.imageUri != "") {
+                if (viewModel.state.image != "") {
                     AsyncImage(
                         modifier = Modifier
                             .height(100.dp)
@@ -90,7 +90,7 @@ fun ProfileEditContent(
                             .clickable { dialogState.value = true },
 
                         contentScale = ContentScale.Crop,
-                        model = viewModel.imageUri,
+                        model = viewModel.state.image,
                         contentDescription = "Seleccionar imagen"
                     )
                 } else {

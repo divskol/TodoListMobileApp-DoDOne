@@ -52,28 +52,26 @@ class ProfileEditViewModel @Inject constructor(
 
     val resultingActivityHandler = ResultingActivityHandler()
 
-    //IMAGES
-    var imageUri by mutableStateOf("")
 
     fun pickImage() = viewModelScope.launch {
         val result = resultingActivityHandler.getContent("image/*")
         if (result != null) {
-            imageUri = result.toString()
             file = ComposeFileProvider.createFileFromUri(context, result)
+            state = state.copy(image = result.toString())
         }
     }
 
     fun takePhoto() = viewModelScope.launch {
         val result = resultingActivityHandler.takePicturePreview()
         if (result != null) {
-            imageUri = ComposeFileProvider.getPathFromBitmap(context, result)
-            file = File(imageUri)
+            state = state.copy(image = ComposeFileProvider.getPathFromBitmap(context, result))
+            file = File(state.image)
         }
 
     }
 
     init {
-        state = state.copy(username = user.username)
+        state = state.copy(username = user.username, image = user.image)
     }
 
     fun onUpdate(url: String) {

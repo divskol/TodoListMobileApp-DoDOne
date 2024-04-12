@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Edit
@@ -16,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -27,11 +29,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 import com.todo.todolistmobileapp.R
 import com.todo.todolistmobileapp.presentation.components.DefaultButton
 import com.todo.todolistmobileapp.presentation.navigation.AppScreen
 import com.todo.todolistmobileapp.presentation.views.profile.ProfileViewModel
 import com.todo.todolistmobileapp.ui.theme.TodoListMobileAppTheme
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @Composable
 fun ProfileContent(
@@ -62,16 +67,27 @@ fun ProfileContent(
                     fontWeight = FontWeight.Bold,
                 )
                 Spacer(modifier = Modifier.height(60.dp))
-
-                Image(
-                    modifier = Modifier
-                        .size(80.dp),
-                    painter = painterResource(
-                        id = R.drawable.logo
-                    ),
-                    contentDescription = "",
-
+                if (viewModel.userData.image != null) {
+                    AsyncImage(
+                        modifier = Modifier
+                            .size(115.dp)
+                            .clip(CircleShape),
+                        model = viewModel.userData.image,
+                        contentDescription = "Imagen Usuario",
+                        contentScale = ContentScale.Crop
                     )
+                } else {
+                    Image(
+                        modifier = Modifier
+                            .size(115.dp)
+                            .clip(CircleShape),
+                        painter = painterResource(
+                            id = R.drawable.logo
+                        ),
+                        contentDescription = "Imagen Usuario Predeterminada",
+
+                        )
+                }
             }
         }
         Spacer(modifier = Modifier.height(30.dp))
@@ -91,6 +107,8 @@ fun ProfileContent(
             description = "Cerrar session actual",
             icon = Icons.Default.Edit,
             onClick = {
+                //reconoce como url no como ruta
+                //  viewModel.userData.image = URLEncoder.encode(viewModel.userData.image, StandardCharsets.UTF_8.toString())
                 navController.navigate(AppScreen.ProfileEdit.passUser(viewModel.userData.toJson()))
             })
         DefaultButton(
