@@ -89,6 +89,8 @@ dependencies {
 
     implementation("commons-io:commons-io:2.7")
 
+    implementation("androidx.compose.material:material:1.1.1")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
