@@ -1,15 +1,17 @@
-package com.todo.todolistmobileapp.presentation.screens.profile.components
+package com.todo.todolistmobileapp.presentation.views.profile.components
 
 
 import android.app.Activity
 import android.content.Intent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,15 +35,20 @@ import com.todo.todolistmobileapp.presentation.navigation.AuthScreen
 import com.todo.todolistmobileapp.presentation.navigation.DetailsScreen
 import com.todo.todolistmobileapp.presentation.navigation.Graph
 import com.todo.todolistmobileapp.presentation.views.profile.ProfileViewModel
+
 @Composable
-fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel = hiltViewModel()) {
+fun ProfileContent(
+    navController: NavHostController,
+    viewModel: ProfileViewModel = hiltViewModel()
+) {
 
     val activity = LocalContext.current as? Activity
 
     Column(
         modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+        horizontalAlignment = Alignment.CenterHorizontally,
+
+        ) {
 
         Box() {
 
@@ -49,18 +56,18 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp),
-                painter = painterResource(id = R.drawable.background),
+                painter = painterResource(id = R.drawable.foto1),
                 contentDescription = "",
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.FillWidth,
                 alpha = 0.6f
             )
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = Modifier.height(30.dp))
+                Spacer(modifier = Modifier.height(55.dp))
                 Text(
-                    text = "Bienvenido",
+                    text = "Mi perfil",
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -74,8 +81,7 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                         contentDescription = "User image",
                         contentScale = ContentScale.Crop
                     )
-                }
-                else {
+                } else {
                     Image(
                         modifier = Modifier.size(115.dp),
                         painter = painterResource(id = R.drawable.user1),
@@ -90,13 +96,13 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
         Spacer(modifier = Modifier.height(55.dp))
         Text(
             text = viewModel.userData.username,
-            fontSize = 20.sp,
+            fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Italic
         )
         Text(
             text = viewModel.userData.email,
-            fontSize = 15.sp,
+            fontSize = 20.sp,
             fontStyle = FontStyle.Italic
         )
         Spacer(modifier = Modifier.height(20.dp))
@@ -104,7 +110,7 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
             text = "Editar info",
             description = "Cerrar session actual",
             icon = Icons.Default.Edit,
-
+            color = Color.Black,
             onClick = {
                 navController.navigate(
                     route = DetailsScreen.ProfileUpdate.passUser(viewModel.userData.toJson())

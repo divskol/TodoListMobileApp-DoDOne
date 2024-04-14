@@ -35,8 +35,8 @@ fun MyPostsCard(navController: NavHostController, post: Post, viewModel: MyPosts
             },
         elevation = 4.dp,
         shape = RoundedCornerShape(20.dp),
-        contentColor = Color.White,
-
+        contentColor = Color.Black,
+        backgroundColor = Color.LightGray
         ) {
         Column() {
             AsyncImage(

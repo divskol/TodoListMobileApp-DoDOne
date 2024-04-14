@@ -48,11 +48,11 @@ class UpdatePostViewModel @Inject constructor(
     val currentUser = authUseCases.currentUser()
 
     val radioOptions = listOf(
-        CategoryRadioButton("PC", R.drawable.logo),
-        CategoryRadioButton("PS4", R.drawable.logo),
-        CategoryRadioButton("XBOX", R.drawable.logo),
-        CategoryRadioButton("NINTENDO", R.drawable.logo),
-        CategoryRadioButton("MOBIL", R.drawable.logo),
+        CategoryRadioButton("Personal", R.drawable.cat_personal),
+        CategoryRadioButton("Estudio", R.drawable.cat_estudio),
+        CategoryRadioButton("Trabajo", R.drawable.cat_trabajo),
+        CategoryRadioButton("Viaje", R.drawable.cat_viaje),
+        CategoryRadioButton("Investigación", R.drawable.cat_investigacion),
     )
 
     init {

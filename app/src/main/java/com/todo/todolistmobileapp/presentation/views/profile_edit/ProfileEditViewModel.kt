@@ -21,37 +21,50 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileEditViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val usersUseCase: UsersUseCase, @ApplicationContext private val context: Context
+    private val usersUseCase: UsersUseCase,
+    @ApplicationContext private val context: Context
 ) :
     ViewModel() {
 
+    // STATE FORM
     var state by mutableStateOf(ProfileEditState())
         private set
+
     var usernameErrMsg by mutableStateOf("")
         private set
-    val userString = savedStateHandle.get<String>("user")
-    val user = User.fromJson(userString!!)
+
+    // ARGUMENTS
+    val data = savedStateHandle.get<String>("user")
+    val user = User.fromJson(data!!)
+
+    // RESPONSE
     var updateResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
 
-    //IMAGE RESPONSE
     var saveImageResponse by mutableStateOf<Response<String>?>(null)
         private set
 
+    // FILE
     var file: File? = null
+
+    val resultingActivityHandler = ResultingActivityHandler()
+
+    init {
+        // SET ARGUMENTS
+        state = state.copy(
+            username = user.username,
+            image = user.image
+        )
+
+    }
+
     fun saveImage() = viewModelScope.launch {
         if (file != null) {
-
             saveImageResponse = Response.Loading
             val result = usersUseCase.saveImage(file!!)
             saveImageResponse = result
         }
     }
-//IMAGE RESPONSE
-
-
-    val resultingActivityHandler = ResultingActivityHandler()
-
 
     fun pickImage() = viewModelScope.launch {
         val result = resultingActivityHandler.getContent("image/*")
@@ -67,20 +80,15 @@ class ProfileEditViewModel @Inject constructor(
             state = state.copy(image = ComposeFileProvider.getPathFromBitmap(context, result))
             file = File(state.image)
         }
-
-    }
-
-    init {
-        state = state.copy(username = user.username, image = user.image)
     }
 
     fun onUpdate(url: String) {
-        val myuser = User(
+        val myUser = User(
             id = user.id,
             username = state.username,
             image = url
         )
-        update(myuser)
+        update(myUser)
     }
 
     fun update(user: User) = viewModelScope.launch {
@@ -96,8 +104,9 @@ class ProfileEditViewModel @Inject constructor(
     fun validateUsername() {
         if (state.username.length >= 5) {
             usernameErrMsg = ""
-        } else {
-            usernameErrMsg = "Al menos requiere 4 caracteres"
+        }
+        else {
+            usernameErrMsg = "Al menos 5 caracteres"
         }
     }
 }

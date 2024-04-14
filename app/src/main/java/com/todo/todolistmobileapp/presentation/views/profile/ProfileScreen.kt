@@ -7,7 +7,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.todo.todolistmobileapp.presentation.screens.profile.components.ProfileContent
+import com.todo.todolistmobileapp.presentation.views.profile.components.ProfileContent
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable

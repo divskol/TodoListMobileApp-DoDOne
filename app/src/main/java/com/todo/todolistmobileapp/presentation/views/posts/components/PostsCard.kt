@@ -1,6 +1,7 @@
 package com.todo.todolistmobileapp.presentation.views.posts.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,7 +24,11 @@ import com.todo.todolistmobileapp.presentation.navigation.DetailsScreen
 import com.todo.todolistmobileapp.presentation.views.posts.PostsViewModel
 
 @Composable
-fun PostsCard(navController: NavHostController, post: Post, viewModel: PostsViewModel = hiltViewModel()) {
+fun PostsCard(
+    navController: NavHostController,
+    post: Post,
+    viewModel: PostsViewModel = hiltViewModel()
+) {
 
     Card(
         modifier = Modifier
@@ -33,8 +38,8 @@ fun PostsCard(navController: NavHostController, post: Post, viewModel: PostsView
             },
         elevation = 4.dp,
         shape = RoundedCornerShape(20.dp),
-        contentColor = Color.White,
-
+        contentColor = Color.DarkGray,
+        backgroundColor = Color.LightGray
     ) {
         Column() {
             AsyncImage(
@@ -72,18 +77,17 @@ fun PostsCard(navController: NavHostController, post: Post, viewModel: PostsView
                             .clickable {
                                 viewModel.deleteLike(post.id, viewModel.currentUser?.uid ?: "")
                             },
-                        painter = painterResource(id = R.drawable.logo),
+                        painter = painterResource(id = R.drawable.like),
                         contentDescription = ""
                     )
-                }
-                else {
+                } else {
                     Image(
                         modifier = Modifier
                             .size(23.dp)
                             .clickable {
                                 viewModel.like(post.id, viewModel.currentUser?.uid ?: "")
                             },
-                        painter = painterResource(id = R.drawable.logo),
+                        painter = painterResource(id = R.drawable.like_outline),
                         contentDescription = ""
                     )
                 }

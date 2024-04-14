@@ -1,6 +1,7 @@
 package com.todo.todolistmobileapp.presentation.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.List
@@ -19,7 +20,7 @@ fun HomeBottomBarNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
         route = Graph.HOME,
-        startDestination = HomeBottomBarScreen.Posts.route
+        startDestination = HomeBottomBarScreen.MyPosts.route
     ) {
 
         composable(route = HomeBottomBarScreen.Posts.route) {
@@ -48,13 +49,13 @@ sealed class HomeBottomBarScreen(
 
     object Posts: HomeBottomBarScreen(
         route = "posts",
-        title = "Posts",
-        icon = Icons.Default.List
+        title = "All task",
+        icon = Icons.Default.Check
     )
 
     object MyPosts: HomeBottomBarScreen(
         route = "my_posts",
-        title = "Mis Posts",
+        title = "New tasks",
         icon = Icons.Outlined.List
     )
 

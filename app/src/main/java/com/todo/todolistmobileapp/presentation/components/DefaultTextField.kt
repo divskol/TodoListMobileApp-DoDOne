@@ -30,13 +30,13 @@ fun DefaultTextField(
 ) {
 
 
-    Column {
+    Column() {
         OutlinedTextField(value = value, onValueChange = {
             onValueChange(it)
             validateField()
         },
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType), label = {
-                Text(text = label)
+                Text(text = label, color = Color.Black)
             }, leadingIcon = {
                 Icon(imageVector = icon, contentDescription = "", tint = Color.Gray)
             },
@@ -46,7 +46,6 @@ fun DefaultTextField(
             text = errorMsg,
             modifier = Modifier.padding(5.dp),
             fontSize = 10.sp,
-            color = Color.White
 
         )
 

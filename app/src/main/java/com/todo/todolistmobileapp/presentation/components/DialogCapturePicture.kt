@@ -27,7 +27,7 @@ fun DialogCapturePicture(
         AlertDialog(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp),
+                .height(250.dp),
             onDismissRequest = { status.value = false },
             title = {
                 Text("Selecciona una opción")

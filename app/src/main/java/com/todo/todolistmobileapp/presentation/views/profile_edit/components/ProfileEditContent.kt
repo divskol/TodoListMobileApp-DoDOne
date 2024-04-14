@@ -78,8 +78,6 @@ fun ProfileEditContent(
             ) {
 
                 Spacer(modifier = Modifier.height(60.dp))
-                Text(text = "aquiii")
-                Spacer(modifier = Modifier.height(60.dp))
 
                 if (viewModel.state.image != "") {
                     AsyncImage(

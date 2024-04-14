@@ -26,7 +26,7 @@ fun Update(viewModel: ProfileEditViewModel = hiltViewModel()) {
 //                ).show()
 //            }
 
-            Log.d("verificar", "jasdasnk")
+            Toast.makeText(LocalContext.current, "Datos actualizados correctamente", Toast.LENGTH_LONG).show()
         }
 
         is Response.Failure -> {

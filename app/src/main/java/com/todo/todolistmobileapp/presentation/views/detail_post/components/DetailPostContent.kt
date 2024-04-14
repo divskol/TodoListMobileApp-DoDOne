@@ -109,17 +109,18 @@ fun DetailPostContent(
             shape = RoundedCornerShape(20.dp)
         ) {
             Row(
-                modifier = Modifier.padding(vertical = 7.dp, horizontal = 20.dp),
+                modifier = Modifier.padding(vertical = 7.dp, horizontal = 20.dp).width(500.dp
+                ),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Image(
                     modifier = Modifier.size(25.dp),
                     painter = painterResource(
-                        id = if (viewModel.post.category == "PC") R.drawable.logo
-                        else if (viewModel.post.category == "XBOX") R.drawable.logo
-                        else if (viewModel.post.category == "PS4") R.drawable.logo
-                        else if (viewModel.post.category == "NINTENDO") R.drawable.logo
-                        else R.drawable.logo
+                        id = if (viewModel.post.category == "Personal") R.drawable.cat_personal
+                        else if (viewModel.post.category == "Estudio") R.drawable.cat_estudio
+                        else if (viewModel.post.category == "Trabajo") R.drawable.cat_trabajo
+                        else if (viewModel.post.category == "Viaje") R.drawable.cat_viaje
+                        else R.drawable.cat_investigacion
                     ),
                     contentDescription = ""
                 )

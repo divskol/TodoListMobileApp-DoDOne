@@ -22,6 +22,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.todo.todolistmobileapp.presentation.navigation.HomeBottomBarNavGraph
 import com.todo.todolistmobileapp.presentation.navigation.HomeBottomBarScreen
+import com.todo.todolistmobileapp.ui.theme.Blue300
+import com.todo.todolistmobileapp.ui.theme.Blue500
+import com.todo.todolistmobileapp.ui.theme.Blue700
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -36,8 +39,8 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
 @Composable
 fun BottomBar(navController: NavHostController) {
     val screens = listOf(
-        HomeBottomBarScreen.Posts,
         HomeBottomBarScreen.MyPosts,
+        HomeBottomBarScreen.Posts,
         HomeBottomBarScreen.Profile,
     )
 
@@ -48,7 +51,7 @@ fun BottomBar(navController: NavHostController) {
     if (bottomBarDestination) {
 
         BottomNavigation(
-//            backgroundColor = Red500
+           backgroundColor = Blue300, contentColor = Color.White
         ) {
             screens.forEach { screen ->
                 AddItem(
@@ -83,7 +86,7 @@ fun RowScope.AddItem(
         selected = currentDestination?.hierarchy?.any {
             it.route == screen.route
         } == true,
-        unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
+        unselectedContentColor = Color.Black.copy(alpha = ContentAlpha.disabled),
         onClick = {
             navController.navigate(screen.route) {
                 popUpTo(navController.graph.findStartDestination().id)

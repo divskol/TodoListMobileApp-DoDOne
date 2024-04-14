@@ -6,6 +6,7 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
@@ -13,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -25,7 +27,6 @@ import com.todo.todolistmobileapp.R
 import com.todo.todolistmobileapp.presentation.components.DefaultTextField
 import com.todo.todolistmobileapp.presentation.components.DialogCapturePicture
 import com.todo.todolistmobileapp.presentation.views.new_post.NewPostViewModel
-
 
 
 @Composable
@@ -52,12 +53,12 @@ fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
-
             ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(170.dp)
+                    .background(Color.LightGray)
             ) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
@@ -75,19 +76,18 @@ fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
                             contentDescription = "Selected image",
                             contentScale = ContentScale.Crop
                         )
-                    }
-                    else {
+                    } else {
                         Image(
                             modifier = Modifier
                                 .height(120.dp)
                                 .clickable {
                                     dialogState.value = true
                                 },
-                            painter = painterResource(id = R.drawable.add_image),
+                            painter = painterResource(id = R.drawable.upload_image),
                             contentDescription = "Imagen de usuario"
                         )
                         Text(
-                            text = "SELECCIONA UNA IMAGEN",
+                            text = "SUBE UNA IMAGEN",
                             fontSize = 19.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -102,8 +102,8 @@ fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
                     .padding(top = 25.dp, start = 20.dp, end = 20.dp),
                 value = state.name,
                 onValueChange = { viewModel.onNameInput(it) },
-                label = "Nombre del juego",
-                icon = Icons.Default.Face,
+                label = "Nombre de la tarea",
+                icon = Icons.Default.CheckCircle,
                 errorMsg = "",
                 validateField = {
 
@@ -124,7 +124,7 @@ fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
             )
             Text(
                 modifier = Modifier.padding(vertical = 15.dp),
-                text = "CATEGORIAS",
+                text = "CATEGORIA",
                 fontSize = 17.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -132,7 +132,7 @@ fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
+                        .padding(horizontal = 20.dp)
                         .selectable(
                             selected = (option.category == state.category),
                             onClick = { viewModel.onCategoryInput(option.category) }
@@ -143,20 +143,25 @@ fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
                         selected = (option.category == state.category),
                         onClick = { viewModel.onCategoryInput(option.category) }
                     )
-                    Row() {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+
+
                         Text(
                             modifier = Modifier
-                                .width(105.dp)
                                 .padding(12.dp),
                             text = option.category
                         )
                         Image(
                             modifier = Modifier
-                                .height(50.dp)
-                                .padding(8.dp),
+                                .height(35.dp)
+                                .padding(5.dp),
                             painter = painterResource(id = option.image),
                             contentDescription = ""
                         )
+
                     }
                 }
             }
@@ -170,6 +175,6 @@ fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
 @Composable
 fun DefaultNewPostContent() {
 
-            NewPostContent()
+    NewPostContent()
 
 }

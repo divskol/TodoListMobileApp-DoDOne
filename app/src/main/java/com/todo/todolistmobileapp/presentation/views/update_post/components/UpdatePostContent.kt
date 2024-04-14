@@ -88,11 +88,11 @@ fun UpdatePostContent(viewModel: UpdatePostViewModel = hiltViewModel()) {
                                 .clickable {
                                     dialogState.value = true
                                 },
-                            painter = painterResource(id = R.drawable.logo),
+                            painter = painterResource(id = R.drawable.upload),
                             contentDescription = "Imagen de usuario"
                         )
                         Text(
-                            text = "SELECCIONA UNA IMAGEN",
+                            text = "SUBE UNA IMAGEN",
                             fontSize = 19.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -107,7 +107,7 @@ fun UpdatePostContent(viewModel: UpdatePostViewModel = hiltViewModel()) {
                     .padding(top = 25.dp, start = 20.dp, end = 20.dp),
                 value = state.name,
                 onValueChange = { viewModel.onNameInput(it) },
-                label = "Nombre del juego",
+                label = "Nombre de la tarea",
                 icon = Icons.Default.Face,
                 errorMsg = "",
                 validateField = {
@@ -151,7 +151,6 @@ fun UpdatePostContent(viewModel: UpdatePostViewModel = hiltViewModel()) {
                     Row() {
                         Text(
                             modifier = Modifier
-                                .width(105.dp)
                                 .padding(12.dp),
                             text = option.category
                         )
