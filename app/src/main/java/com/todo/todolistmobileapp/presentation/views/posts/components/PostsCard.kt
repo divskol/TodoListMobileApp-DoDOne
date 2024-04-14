@@ -4,11 +4,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -39,14 +42,18 @@ fun PostsCard(
         elevation = 4.dp,
         shape = RoundedCornerShape(20.dp),
         contentColor = Color.DarkGray,
-        backgroundColor = Color.LightGray
-    ) {
-        Column() {
+        backgroundColor = Color.LightGray,
+
+        ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             AsyncImage(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(170.dp),
+                    .height(80.dp)
+                    .width(80.dp)
+                    .padding(5.dp)
+                    .clip(CircleShape),
                 model = post.image,
+
                 contentDescription = "",
                 contentScale = ContentScale.Crop
             )
@@ -91,13 +98,13 @@ fun PostsCard(
                         contentDescription = ""
                     )
                 }
-
-                Text(
-                    modifier = Modifier.padding(start = 5.dp),
-                    text = post.likes.size.toString(),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp
-                )
+//
+//                Text(
+//                    modifier = Modifier.padding(start = 5.dp),
+//                    text = post.likes.size.toString(),
+//                    fontWeight = FontWeight.Bold,
+//                    fontSize = 17.sp
+//                )
             }
         }
     }

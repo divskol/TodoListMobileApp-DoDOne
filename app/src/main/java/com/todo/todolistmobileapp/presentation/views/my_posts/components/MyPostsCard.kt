@@ -2,6 +2,7 @@ package com.todo.todolistmobileapp.presentation.views.my_posts.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -11,7 +12,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -38,11 +41,13 @@ fun MyPostsCard(navController: NavHostController, post: Post, viewModel: MyPosts
         contentColor = Color.Black,
         backgroundColor = Color.LightGray
         ) {
-        Column() {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             AsyncImage(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(170.dp),
+                    .height(80.dp)
+                    .width(80.dp)
+                    .padding(5.dp)
+                    .clip(CircleShape),
                 model = post.image,
                 contentDescription = "",
                 contentScale = ContentScale.Crop
@@ -60,7 +65,7 @@ fun MyPostsCard(navController: NavHostController, post: Post, viewModel: MyPosts
                 color = Color.Gray
             )
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxHeight(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 IconButton(

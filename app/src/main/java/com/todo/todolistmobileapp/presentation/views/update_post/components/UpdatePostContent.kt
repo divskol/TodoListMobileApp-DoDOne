@@ -8,6 +8,7 @@ import androidx.compose.material.RadioButton
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
@@ -108,7 +109,7 @@ fun UpdatePostContent(viewModel: UpdatePostViewModel = hiltViewModel()) {
                 value = state.name,
                 onValueChange = { viewModel.onNameInput(it) },
                 label = "Nombre de la tarea",
-                icon = Icons.Default.Face,
+                icon = Icons.Default.CheckCircle,
                 errorMsg = "",
                 validateField = {
 
@@ -129,7 +130,7 @@ fun UpdatePostContent(viewModel: UpdatePostViewModel = hiltViewModel()) {
             )
             Text(
                 modifier = Modifier.padding(vertical = 15.dp),
-                text = "CATEGORIAS",
+                text = "CATEGORIA",
                 fontSize = 17.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -156,8 +157,8 @@ fun UpdatePostContent(viewModel: UpdatePostViewModel = hiltViewModel()) {
                         )
                         Image(
                             modifier = Modifier
-                                .height(50.dp)
-                                .padding(8.dp),
+                                .height(35.dp)
+                                .padding(5.dp),
                             painter = painterResource(id = option.image),
                             contentDescription = ""
                         )
