@@ -27,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.todo.todolistmobileapp.R
 import com.todo.todolistmobileapp.presentation.components.DefaultTextField
+import com.todo.todolistmobileapp.presentation.components.DefaultTextFieldDark
 import com.todo.todolistmobileapp.presentation.components.DialogCapturePicture
 import com.todo.todolistmobileapp.presentation.views.new_post.NewPostViewModel
 import com.todo.todolistmobileapp.presentation.views.update_post.UpdatePostViewModel
@@ -102,7 +103,7 @@ fun UpdatePostContent(viewModel: UpdatePostViewModel = hiltViewModel()) {
                 }
 
             }
-            DefaultTextField(
+            DefaultTextFieldDark(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 25.dp, start = 20.dp, end = 20.dp),
@@ -113,9 +114,10 @@ fun UpdatePostContent(viewModel: UpdatePostViewModel = hiltViewModel()) {
                 errorMsg = "",
                 validateField = {
 
+
                 }
             )
-            DefaultTextField(
+            DefaultTextFieldDark(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 0.dp, start = 20.dp, end = 20.dp),

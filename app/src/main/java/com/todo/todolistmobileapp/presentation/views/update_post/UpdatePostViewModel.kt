@@ -8,7 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.optic.gamermvvmapp.presentation.views.update_post.UpdatePostState
+import com.todo.todolistmobileapp.presentation.views.update_post.UpdatePostState
 import com.todo.todolistmobileapp.R
 import com.todo.todolistmobileapp.domain.model.Post
 import com.todo.todolistmobileapp.domain.model.Response

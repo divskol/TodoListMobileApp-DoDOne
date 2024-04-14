@@ -1,9 +1,11 @@
 package com.todo.todolistmobileapp.presentation.views.update_post
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -34,12 +36,18 @@ fun UpdatePostScreen(
             UpdatePostContent()
         },
         bottomBar = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
 
-            DefaultButton(
-                text = "Actaulizar", description = "Ingresar a la app",
-                onClick = { viewModel.onUpdatePost() },
+                DefaultButton(
+                    text = "Actualizar", description = "Ingresar a la app",
+                    onClick = { viewModel.onUpdatePost() },
 
-                )
+                    )
+            }
         }
     )
     UpdatePost()

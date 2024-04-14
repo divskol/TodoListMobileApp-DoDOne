@@ -1,4 +1,4 @@
-package com.optic.gamermvvmapp.presentation.views.update_post
+package com.todo.todolistmobileapp.presentation.views.update_post
 
 data class UpdatePostState(
     val image: String = "",

@@ -26,12 +26,19 @@ import coil.compose.AsyncImage
 import com.todo.todolistmobileapp.domain.model.Post
 import com.todo.todolistmobileapp.presentation.navigation.DetailsScreen
 import com.todo.todolistmobileapp.presentation.views.my_posts.MyPostsViewModel
+import com.todo.todolistmobileapp.ui.theme.Blue300
+import com.todo.todolistmobileapp.ui.theme.Blue500
 
 @Composable
-fun MyPostsCard(navController: NavHostController, post: Post, viewModel: MyPostsViewModel = hiltViewModel()) {
+fun MyPostsCard(
+    navController: NavHostController,
+    post: Post,
+    viewModel: MyPostsViewModel = hiltViewModel()
+) {
 
     Card(
         modifier = Modifier
+            .fillMaxWidth()
             .padding(top = 0.dp, bottom = 15.dp)
             .clickable {
                 navController.navigate(route = DetailsScreen.DetailPost.passPost(post.toJson()))
@@ -40,8 +47,8 @@ fun MyPostsCard(navController: NavHostController, post: Post, viewModel: MyPosts
         shape = RoundedCornerShape(20.dp),
         contentColor = Color.Black,
         backgroundColor = Color.LightGray
-        ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    ) {
+        Row() {
             AsyncImage(
                 modifier = Modifier
                     .height(80.dp)
@@ -52,21 +59,27 @@ fun MyPostsCard(navController: NavHostController, post: Post, viewModel: MyPosts
                 contentDescription = "",
                 contentScale = ContentScale.Crop
             )
-            Text(
-                modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp),
-                text = post.name,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 3.dp),
-                text = post.description,
-                fontSize = 13.sp,
-                maxLines = 2,
-                color = Color.Gray
-            )
+            Column {
+
+                Text(
+                    modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp),
+                    text = post.name,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 3.dp),
+                    text = post.description,
+                    fontSize = 13.sp,
+                    maxLines = 2,
+                    color = Color.Gray
+                )
+            }
+
             Row(
-                modifier = Modifier.fillMaxHeight(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 15.dp),
+                horizontalArrangement = Arrangement.End
             ) {
                 IconButton(
                     onClick = {
@@ -77,7 +90,7 @@ fun MyPostsCard(navController: NavHostController, post: Post, viewModel: MyPosts
                         modifier = Modifier.size(25.dp),
                         imageVector = Icons.Default.Edit,
                         contentDescription = "",
-                        tint = Color.White
+                        tint = Color.DarkGray
                     )
                 }
                 IconButton(onClick = { viewModel.delete(post.id) }) {
@@ -85,7 +98,7 @@ fun MyPostsCard(navController: NavHostController, post: Post, viewModel: MyPosts
                         modifier = Modifier.size(25.dp),
                         imageVector = Icons.Default.Delete,
                         contentDescription = "",
-                        tint = Color.White
+                        tint = Color.Gray
                     )
                 }
             }

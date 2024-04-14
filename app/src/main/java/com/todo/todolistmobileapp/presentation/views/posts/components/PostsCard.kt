@@ -36,6 +36,7 @@ fun PostsCard(
     Card(
         modifier = Modifier
             .padding(top = 0.dp, bottom = 15.dp)
+            .fillMaxWidth()
             .clickable {
                 navController.navigate(route = DetailsScreen.DetailPost.passPost(post.toJson()))
             },
@@ -45,7 +46,7 @@ fun PostsCard(
         backgroundColor = Color.LightGray,
 
         ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Row() {
             AsyncImage(
                 modifier = Modifier
                     .height(80.dp)
@@ -57,25 +58,36 @@ fun PostsCard(
                 contentDescription = "",
                 contentScale = ContentScale.Crop
             )
-            Text(
-                modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp),
-                text = post.name,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                modifier = Modifier.padding(horizontal = 15.dp, vertical = 3.dp),
-                text = post.user?.username ?: "",
-                fontSize = 12.sp
-            )
-            Text(
-                modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 3.dp, bottom = 10.dp),
-                text = post.description,
-                fontSize = 13.sp,
-                maxLines = 2,
-                color = Color.Gray
-            )
-            Row(
-                modifier = Modifier.padding(start = 15.dp, bottom = 15.dp)
+            Column {
+
+
+                Text(
+                    modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp),
+                    text = post.name,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    modifier = Modifier.padding(horizontal = 15.dp, vertical = 3.dp),
+                    text = post.user?.username ?: "",
+                    fontSize = 12.sp
+                )
+                Text(
+                    modifier = Modifier.padding(
+                        start = 15.dp,
+                        end = 15.dp,
+                        top = 3.dp,
+                        bottom = 10.dp
+                    ),
+                    text = post.description,
+                    fontSize = 13.sp,
+                    maxLines = 2,
+                    color = Color.Gray
+                )
+            }
+
+            Column(
+                modifier = Modifier.padding(start = 75.dp, top = 30.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 if (post.likes.contains(viewModel.currentUser?.uid)) {
                     Image(

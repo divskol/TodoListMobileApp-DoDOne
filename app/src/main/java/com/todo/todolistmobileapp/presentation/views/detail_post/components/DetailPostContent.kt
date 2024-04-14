@@ -9,6 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -25,6 +26,7 @@ import coil.compose.AsyncImage
 import com.todo.todolistmobileapp.R
 import com.todo.todolistmobileapp.presentation.views.detail_post.DetailPostViewModel
 import com.todo.todolistmobileapp.presentation.views.signup.SignupScreen
+import com.todo.todolistmobileapp.ui.theme.Blue300
 
 @Composable
 fun DetailPostContent(
@@ -36,6 +38,7 @@ fun DetailPostContent(
         modifier = Modifier
             .fillMaxWidth()
             .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         Box() {
@@ -100,7 +103,7 @@ fun DetailPostContent(
             modifier = Modifier.padding(start = 20.dp, bottom = 15.dp),
             text = viewModel.post.name,
             fontSize = 20.sp,
-            color = Color.Magenta,
+            color = Blue300,
             fontWeight = FontWeight.Bold
         )
         Card(
@@ -109,8 +112,11 @@ fun DetailPostContent(
             shape = RoundedCornerShape(20.dp)
         ) {
             Row(
-                modifier = Modifier.padding(vertical = 7.dp, horizontal = 20.dp).width(500.dp
-                ),
+                modifier = Modifier
+                    .padding(vertical = 7.dp, horizontal = 20.dp)
+                    .width(
+                        500.dp
+                    ),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Image(
@@ -140,7 +146,7 @@ fun DetailPostContent(
         )
         Text(
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
-            text = "DESCRIPCION",
+            text = "Descripción",
             fontWeight = FontWeight.Bold,
             fontSize = 17.sp
         )

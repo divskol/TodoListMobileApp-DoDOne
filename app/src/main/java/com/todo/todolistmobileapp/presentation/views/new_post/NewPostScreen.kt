@@ -25,7 +25,7 @@ fun NewPostScreen(navController: NavHostController, viewModel: NewPostViewModel 
     Scaffold(
         topBar = {
             DefaultTopBar(
-                title = "Nuevo Post",
+                title = "Nueva tarea",
                 upAvailable = true,
                 navController = navController
             )
@@ -44,8 +44,8 @@ fun NewPostScreen(navController: NavHostController, viewModel: NewPostViewModel 
                 horizontalAlignment = Alignment.CenterHorizontally) {
 
                 DefaultButton(
-                    text = "Publicar",
-                    description = "publicar",
+                    text = "Guardar",
+                    description = "Guardar nueva tarea",
                     icon = Icons.Default.Edit,
                     onClick = { viewModel.onNewPost() })
             }

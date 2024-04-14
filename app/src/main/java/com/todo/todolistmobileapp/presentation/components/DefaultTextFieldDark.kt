@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -20,7 +21,7 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun DefaultTextField(
+fun DefaultTextFieldDark(
     modifier: Modifier,
     value: String, onValueChange: (value: String) -> Unit, label: String,
     icon: ImageVector, keyboardType: KeyboardType = KeyboardType.Text,
@@ -36,17 +37,17 @@ fun DefaultTextField(
             validateField()
         },
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType), label = {
-                Text(text = label, color = Color.Gray)
+                Text(
+                    text = label, color = Color.Black, style = TextStyle(color = Color.Black)
+                )
             }, leadingIcon = {
                 Icon(imageVector = icon, contentDescription = "", tint = Color.Gray)
             },
-            visualTransformation = if (hideText) PasswordVisualTransformation() else VisualTransformation.None
         )
         Text(
             text = errorMsg,
             modifier = Modifier.padding(5.dp),
             fontSize = 10.sp,
-
         )
 
     }
