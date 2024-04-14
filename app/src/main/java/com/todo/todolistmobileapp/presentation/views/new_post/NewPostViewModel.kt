@@ -14,6 +14,7 @@ import com.todo.todolistmobileapp.domain.use_cases.auth.AuthUseCases
 import com.todo.todolistmobileapp.domain.use_cases.posts.PostsUseCases
 import com.todo.todolistmobileapp.presentation.utils.ComposeFileProvider
 import com.todo.todolistmobileapp.presentation.utils.ResultingActivityHandler
+import com.todo.todolistmobileapp.presentation.views.new_post.NewPostState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
@@ -41,11 +42,11 @@ class NewPostViewModel @Inject constructor(
     val currentUser = authUseCases.currentUser()
 
     val radioOptions = listOf(
-        CategoryRadioButton("PC", R.drawable.inicio),
-        CategoryRadioButton("PS4", R.drawable.inicio),
-        CategoryRadioButton("XBOX", R.drawable.inicio),
-        CategoryRadioButton("NINTENDO", R.drawable.inicio),
-        CategoryRadioButton("MOBIL", R.drawable.inicio),
+        CategoryRadioButton("PC", R.drawable.icon_pc),
+        CategoryRadioButton("PS4", R.drawable.icon_ps4),
+        CategoryRadioButton("XBOX", R.drawable.icon_xbox),
+        CategoryRadioButton("NINTENDO", R.drawable.icon_nintendo),
+        CategoryRadioButton("MOBIL", R.drawable.icon_mobile),
     )
 
     fun createPost(post: Post) = viewModelScope.launch {

@@ -1,17 +1,18 @@
 package com.todo.todolistmobileapp.presentation.views.new_post
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.todo.todolistmobileapp.presentation.components.DefaultButton
 import com.todo.todolistmobileapp.presentation.components.DefaultTopBar
 import com.todo.todolistmobileapp.presentation.views.new_post.components.NewPost
 import com.todo.todolistmobileapp.presentation.views.new_post.components.NewPostContent
-import com.todo.todolistmobileapp.presentation.views.new_post.NewPostViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable

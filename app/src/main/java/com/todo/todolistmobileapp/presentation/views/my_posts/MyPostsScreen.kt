@@ -13,15 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.todo.todolistmobileapp.presentation.navigation.DetailsScreen
+import com.todo.todolistmobileapp.presentation.views.my_posts.components.GetPostsByIdUser
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MyPostsScreen(navController: NavHostController) {
 
-    Scaffold(
+    androidx.compose.material.Scaffold(
         content = {
-                  Text(text = "dgvdsg")
-//            GetPostsByIdUser(navController = navController)
+            GetPostsByIdUser(navController = navController)
         },
         floatingActionButton = {
             FloatingActionButton(
@@ -37,4 +37,3 @@ fun MyPostsScreen(navController: NavHostController) {
     )
 
 }
-

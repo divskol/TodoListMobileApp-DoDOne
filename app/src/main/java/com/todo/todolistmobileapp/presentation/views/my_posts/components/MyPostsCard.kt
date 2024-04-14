@@ -37,7 +37,7 @@ fun MyPostsCard(navController: NavHostController, post: Post, viewModel: MyPosts
         shape = RoundedCornerShape(20.dp),
         contentColor = Color.White,
 
-    ) {
+        ) {
         Column() {
             AsyncImage(
                 modifier = Modifier
