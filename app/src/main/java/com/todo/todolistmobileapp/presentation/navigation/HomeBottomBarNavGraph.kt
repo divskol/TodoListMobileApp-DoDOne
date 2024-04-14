@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.todo.todolistmobileapp.presentation.views.myposts.MyPostsScreen
+import com.todo.todolistmobileapp.presentation.views.my_posts.MyPostsScreen
 import com.todo.todolistmobileapp.presentation.views.posts.PostsScreen
 import com.todo.todolistmobileapp.presentation.views.profile.ProfileScreen
 

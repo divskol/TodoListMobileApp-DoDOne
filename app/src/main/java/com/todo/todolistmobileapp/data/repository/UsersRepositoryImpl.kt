@@ -3,6 +3,8 @@ package com.todo.todolistmobileapp.data.repository
 import android.net.Uri
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.storage.StorageReference
+import com.todo.todolistmobileapp.core.Constants.POSTS
+import com.todo.todolistmobileapp.core.Constants.USERS
 import com.todo.todolistmobileapp.domain.model.Response
 import com.todo.todolistmobileapp.domain.model.User
 import com.todo.todolistmobileapp.domain.repository.UsersRepository
@@ -13,10 +15,11 @@ import kotlinx.coroutines.tasks.await
 import okhttp3.internal.wait
 import java.io.File
 import javax.inject.Inject
+import javax.inject.Named
 
 class UsersRepositoryImpl @Inject constructor(
-    private val usersRef: CollectionReference,
-    private val storageUserRef: StorageReference
+   @Named(USERS) private val usersRef: CollectionReference,
+   @Named(USERS)  private val storageUserRef: StorageReference
 ) :
     UsersRepository {
     override suspend fun create(user: User): Response<Boolean> {

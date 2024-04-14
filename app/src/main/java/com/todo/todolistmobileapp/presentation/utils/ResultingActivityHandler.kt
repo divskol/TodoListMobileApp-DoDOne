@@ -19,7 +19,6 @@ class ResultingActivityHandler {
 
     suspend fun takePicturePreview(
         maxTry: Int = 10,
-
         millis: Long = 200,
     ): Bitmap?{
         return request(

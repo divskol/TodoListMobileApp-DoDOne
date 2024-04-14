@@ -12,26 +12,18 @@ import com.todo.todolistmobileapp.presentation.views.profile_edit.ProfileEditScr
 
 @Composable
 fun RootNavGraph(navController: NavHostController) {
+
     NavHost(
         navController = navController,
         route = Graph.ROOT,
         startDestination = Graph.AUTHENTICATION
     ) {
-        authNavGraph(navController = navController)
 
-        composable(route = RootScreen.Home.route) {
+        authNavGraph(navController = navController)
+        composable(route = Graph.HOME) {
             HomeScreen()
         }
 
-        composable(route = AuthScreen.ProfileEdit.route, arguments = listOf(navArgument("user") {
-            type = NavType.StringType
-        })) {
-            it.arguments?.getString("user")?.let {
-                ProfileEditScreen(navController, user = it)
-            }
-        }
     }
-}
-sealed class RootScreen(val route: String) {
-    object Home : RootScreen("home")
+
 }

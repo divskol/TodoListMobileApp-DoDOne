@@ -79,7 +79,7 @@ dependencies {
 
     //storage
     implementation("com.google.firebase:firebase-storage")
-
+    implementation("com.google.firebase:firebase-storage-ktx")
     //gson
     implementation("com.google.code.gson:gson:2.9.0")
 

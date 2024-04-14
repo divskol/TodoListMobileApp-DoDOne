@@ -1,4 +1,4 @@
-package com.todo.todolistmobileapp.presentation.views.login.components
+package com.todo.todolistmobileapp.presentation.views.posts.components
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
@@ -9,33 +9,28 @@ import androidx.navigation.NavHostController
 import com.todo.todolistmobileapp.domain.model.Response
 import com.todo.todolistmobileapp.presentation.components.ProgressBar
 import com.todo.todolistmobileapp.presentation.navigation.Graph
-import com.todo.todolistmobileapp.presentation.views.login.LoginViewModel
+import com.todo.todolistmobileapp.presentation.views.posts.PostsViewModel
+import com.todo.todolistmobileapp.presentation.views.posts.components.PostsContent
 
 @Composable
-fun Login(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
-    when (val loginResponse = viewModel.loginResponse) {
+fun GetPosts(navController: NavHostController, viewModel: PostsViewModel = hiltViewModel()) {
+
+    when (val response = viewModel.postsResponse) {
+        // MOSTRAR QUE SE ESTA REALIZANDO LA PETICION Y TODAVIA ESTA EN PROCESO
         Response.Loading -> {
             ProgressBar()
         }
 
         is Response.Success -> {
-            LaunchedEffect(Unit) {
-                navController.navigate(route = Graph.HOME) {
-                    popUpTo(Graph.AUTHENTICATION) {
-                        inclusive = true
-                    }
-                }
-            }
-//                Toast.makeText(LocalContext.current, "Usuario Logeado", Toast.LENGTH_LONG).show()
+            PostsContent(navController = navController, posts = response.data)
         }
 
         is Response.Failure -> {
             Toast.makeText(
                 LocalContext.current,
-                loginResponse.exception?.message ?: "Error ingreso",
+                response.exception?.message ?: "Error desconido",
                 Toast.LENGTH_LONG
             ).show()
-
         }
 
         else -> {
